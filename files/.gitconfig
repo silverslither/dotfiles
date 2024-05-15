@@ -1,0 +1,9 @@
+[init]
+	defaultBranch = main
+[user]
+	name = silverslither
+	email = 66127672+silverslither@users.noreply.github.com
+[core]
+	editor = nvim
+[credential]
+	helper = store
