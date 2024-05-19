@@ -9,11 +9,11 @@ local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
 local vimtex_math_ctx = function()
-    return vim.fn['vimtex#syntax#in_mathzone']() == 1
+    return vim.fn["vimtex#syntax#in_mathzone"]() == 1
 end
 
 local not_vimtex_math_ctx = function()
-    return vim.fn['vimtex#syntax#in_mathzone']() ~= 1
+    return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1
 end
 
 return {
