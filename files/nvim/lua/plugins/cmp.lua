@@ -40,7 +40,11 @@ function _config()
         sources = {
             { name = "nvim_lsp" },
             { name = "luasnip", keyword_length = 1, keyword_pattern = [[[^0-9A-Za-z$& ][^ ]\+]] }
-        }
+        },
+
+        enabled = function()
+            return vim.api.nvim_get_mode().mode ~= "c" -- mem leak on large files when in command mode
+        end
     })
 end
 

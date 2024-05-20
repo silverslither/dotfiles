@@ -1,4 +1,7 @@
 function _config()
+    require("mason").setup()
+    require("mason-lspconfig").setup()
+
     local lsp_zero = require("lsp-zero").preset({})
     local lspconfig = require("lspconfig")
 
@@ -17,9 +20,6 @@ function _config()
     })
 
     lsp_zero.setup()
-
-    local mason = require("mason")
-    mason.setup()
 end
 
 return {
