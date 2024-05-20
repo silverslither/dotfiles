@@ -1,6 +1,6 @@
 return {
     "LunarVim/bigfile.nvim",
-    config = {
+    opts = {
         filesize = 2, -- MB
         pattern = { "*" },
         features = {
