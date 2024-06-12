@@ -18,6 +18,12 @@ function _config()
                         Lua = {
                             diagnostics = {
                                 disable = { "lowercase-global" }
+                            },
+                            format = {
+                                enable = true,
+                                defaultConfig = {
+                                    max_line_length = "-1" -- works because formatter stores as size_t (unsigned)
+                                }
                             }
                         }
                     }

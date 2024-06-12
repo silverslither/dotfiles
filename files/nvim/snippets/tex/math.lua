@@ -95,6 +95,6 @@ return {
     s({ trig = "<==>" }, t("\\Leftrightarrow")),
     s({ trig = "<===>" }, t("\\Longleftrightarrow")),
 
-    s({ trig = "|->" }, t("\\mapsto")),
-    s({ trig = "|-->" }, t("\\longmapsto")),
+    --s({ trig = "|->" }, t("\\mapsto")),
+    --s({ trig = "|-->" }, t("\\longmapsto")),
 }

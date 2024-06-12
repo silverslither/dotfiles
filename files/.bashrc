@@ -11,6 +11,8 @@ alias vim=nvim
 alias vi=nvim
 alias rm='rm -i'
 
+alias source-venv='source venv/bin/activate'
+
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export PAGER=less

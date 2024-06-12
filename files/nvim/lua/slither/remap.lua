@@ -40,6 +40,7 @@ vim.keymap.set("i", "<C-h>", "<Left>")
 
 vim.keymap.set("n", "<leader>tn", vim.cmd.tabnew)
 vim.keymap.set("n", "<leader>tc", vim.cmd.tabclose)
+vim.keymap.set("n", "<leader>ts", function() vim.cmd("tab split") end)
 vim.keymap.set("n", "<leader>tj", "<CMD>-tabmove<CR>")
 vim.keymap.set("n", "<leader>tk", "<CMD>+tabmove<CR>")
 vim.keymap.set("n", "<leader>1", "1gt")

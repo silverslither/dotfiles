@@ -17,8 +17,6 @@ function _config()
             ["<C-Space>"] = cmp.mapping(function(fallback)
                 if ls.locally_jumpable(1) then
                     ls.jump(1)
-                    --else
-                    --fallback()
                 end
             end, { "i", "s" }),
 
@@ -39,7 +37,7 @@ function _config()
 
         sources = {
             { name = "nvim_lsp" },
-            { name = "luasnip", keyword_length = 1, keyword_pattern = [[[^0-9A-Za-z$& ][^ ]\+]] }
+            { name = "luasnip", keyword_length = 1, keyword_pattern = [[[^0-9A-Za-z([{|$& ][^ ]\+]] } -- only for latex
         },
 
         enabled = function()
