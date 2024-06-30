@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
 PATHS=(
-    ".bashrc"
-    ".inputrc"
-    ".tmux.conf"
-    ".gitconfig"
-    ".clang-format"
-    ".config/nvim"
+    "$HOME/.bashrc"
+    "$HOME/.inputrc"
+    "$HOME/.colemak.inputrc"
+    "$HOME/.tmux.conf"
+    "$HOME/.gitconfig"
+    "$HOME/.clang-format"
+    "$HOME/.config/nvim"
+    "/boot/sbsign-grub-install.sh"
+    "/boot/shim-nvram.sh"
 )
 
 rm -rf "files"
@@ -14,5 +17,5 @@ mkdir files
 
 for i in "${PATHS[@]}"
 do
-    cp -r "$HOME/$i" "files"
+    cp -r "$i" "files"
 done

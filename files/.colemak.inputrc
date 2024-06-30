@@ -1,0 +1,9 @@
+set keymap vi-command
+"n": next-history
+"k": vi-search-again
+"e": previous-history
+"j": vi-end-word
+"J": vi-end-word
+"i": forward-char
+"l": vi-insertion-mode
+"L": vi-insert-beg

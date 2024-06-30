@@ -37,7 +37,7 @@ function _config()
 
         sources = {
             { name = "nvim_lsp" },
-            { name = "luasnip", keyword_length = 1, keyword_pattern = [[[^0-9A-Za-z([{|$& ][^ ]\+]] } -- only for latex
+            { name = "luasnip", keyword_length = 1, keyword_pattern = [[[^]0-9A-Za-z()[{}|$&.\ ][^][(){} ]\+]] } -- only for latex
         },
 
         enabled = function()
