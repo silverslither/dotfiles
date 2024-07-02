@@ -27,8 +27,18 @@ then
     bind -f "$HOME/.colemak.inputrc"
 fi
 
+viman () {
+    err=$(/usr/bin/man $1 2>&1 1>/dev/null)
+    if [[ $? == 0 ]]
+    then
+        nvim -c "set scl=no" -c "hide Man $1"
+    else
+        echo "$err" 1>&2
+    fi
+}
+
 e () {
-    $VISUAL $(fzf)
+    path=$(fzf) && $VISUAL "$path"
 }
 
 export BASH_TEMP_HISTORY_DONT_TOUCH="/tmp/bash$(tty | sed "s/\//_/g").stdout"
