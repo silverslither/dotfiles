@@ -10,13 +10,18 @@ alias grep='grep --color=auto'
 alias vim=nvim
 alias vi=nvim
 alias rm='rm -i'
+alias cc=clang
+alias c++=clang++
 
+alias create-venv='python -m venv venv'
 alias source-venv='source venv/bin/activate'
 
-export VISUAL=nvim
+export VISUAL=/usr/bin/nvim
 export EDITOR="$VISUAL"
-export PAGER=less
-export AUR_PAGER=nvim
+export PAGER=/usr/bin/less
+export AUR_PAGER=/usr/bin/nvim
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
 
 bind -m vi-command '"v":ignore'
 bind -m vi-command '">":edit-and-execute-command'
@@ -31,24 +36,28 @@ viman () {
     err=$(/usr/bin/man $1 2>&1 1>/dev/null)
     if [[ $? == 0 ]]
     then
-        nvim -c "set scl=no" -c "hide Man $1"
+        /usr/bin/nvim -c "set scl=no" -c "hide Man $1"
     else
-        echo "$err" 1>&2
+        /usr/bin/echo "$err" 1>&2
     fi
 }
 
 e () {
-    path=$(fzf) && $VISUAL "$path"
+    path=$(/usr/bin/fzf) && $VISUAL "$path"
 }
 
-export BASH_TEMP_HISTORY_DONT_TOUCH="/tmp/bash$(tty | sed "s/\//_/g").stdout"
-> $BASH_TEMP_HISTORY_DONT_TOUCH
-touch '/tmp/bash_global.stdout'
-__ () { 
-    tee $BASH_TEMP_HISTORY_DONT_TOUCH '/tmp/bash_global.stdout';
+d () {
+    path=$(/usr/bin/fzf --walker dir,follow,hidden) && cd "$path"
 }
-_ () { cat $BASH_TEMP_HISTORY_DONT_TOUCH; }
-_+ () { cat '/tmp/bash_global.stdout'; }
+
+export BASH_TEMP_HISTORY_DONT_TOUCH="/tmp/bash$(/usr/bin/tty | /usr/bin/sed "s/\//_/g").stdout"
+> $BASH_TEMP_HISTORY_DONT_TOUCH
+/usr/bin/touch '/tmp/bash_global.stdout'
+__ () { 
+    /usr/bin/tee $BASH_TEMP_HISTORY_DONT_TOUCH '/tmp/bash_global.stdout';
+}
+_ () { /usr/bin/cat $BASH_TEMP_HISTORY_DONT_TOUCH; }
+_+ () { /usr/bin/cat '/tmp/bash_global.stdout'; }
 
 #PS1='[\u@\h \W]\$ '
 PS1='[\W] \$ '
