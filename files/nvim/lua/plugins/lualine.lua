@@ -1,10 +1,8 @@
-return {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
+function _config()
+    require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = "auto",
+            theme = vim.g.material_lualine_theme,
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = {
@@ -40,5 +38,11 @@ return {
         winbar = {},
         inactive_winbar = {},
         extensions = {}
-    }
+    })
+end
+
+return {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "marko-cerovac/material.nvim", "nvim-tree/nvim-web-devicons" },
+    config = _config
 }

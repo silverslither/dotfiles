@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
 
 PATHS=(
-    "$HOME/.bashrc"
+    "$HOME/.zshrc"
     "$HOME/.inputrc"
-    "$HOME/.colemak.inputrc"
     "$HOME/.tmux.conf"
     "$HOME/.gitconfig"
     "$HOME/.clang-format"
     "$HOME/.config/nvim"
+    "$HOME/.config/hypr"
+    "$HOME/.config/waybar"
+    "$HOME/.config/dunst/dunstrc"
+    "$HOME/.config/foot"
     "/boot/sbsign-grub-install.sh"
     "/boot/shim-nvram.sh"
+    "/usr/share/X11/xkb/symbols/custom"
 )
 
 rm -rf "files"

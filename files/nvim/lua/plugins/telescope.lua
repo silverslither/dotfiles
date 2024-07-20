@@ -20,7 +20,7 @@ function _config()
 
     require("telescope").setup({
         defaults = {
-            buffer_previewer_maker = truncate,
+            buffer_previewer_maker = truncate
         }
     })
 

@@ -1,0 +1,43 @@
+[global]
+    follow = mouse
+
+    width = 400
+    height = 300
+    origin = top-right
+
+    frame_width = 2
+    frame_color = "#ffffff"
+
+    font = Fira Sans 10
+    format = "<b>%s</b>\n%b"
+
+    enable_recursive_icon_lookup = true
+    icon_theme = Vivid-Dark-Icons
+
+    dmenu = /usr/bin/wofi --dmenu -p dunst:
+    browser = /usr/bin/xdg-open
+
+    corner_radius = 4
+    corners = all
+
+    mouse_left_click = do_action
+    mouse_right_click = close_current
+    mouse_middle_click = close_all
+
+[urgency_low]
+    background = "#222222"
+    foreground = "#ffffff"
+    timeout = 10
+
+[urgency_normal]
+    background = "#222222"
+    foreground = "#ffffff"
+    timeout = 10
+    override_pause_level = 30
+
+[urgency_critical]
+    background = "#7f0000"
+    foreground = "#ffffff"
+    frame_color = "#ff0000"
+    timeout = 0
+    override_pause_level = 60

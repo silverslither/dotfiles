@@ -17,6 +17,6 @@ function _tabline()
     return s
 end
 
-vim.cmd("highlight TabLineSel gui=bold")
+vim.cmd("highlight TabLineSel gui=bold") 
 
 vim.opt.tabline = "%!v:lua._tabline()"

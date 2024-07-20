@@ -1,0 +1,101 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top",
+    "position": "top",
+    "spacing": 0, // (px)
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window",
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "idle_inhibitor",
+        "tray",
+        "pulseaudio",
+        //"network",
+        //"bluetooth",
+        //"cpu",
+        //"memory",
+        "backlight",
+        "hyprland/language",
+        "battery"
+    ],
+
+    "clock": {
+        "interval": 1,
+        "format": "{:%a %Y-%m-%d %I:%M:%S %p}"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        "spacing": 14
+    },
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{volume} {icon} {format_source}",
+        "format-muted": "󰝟    {format_source}",
+        "format-bluetooth": "{volume} {icon} {format_source}",
+        "format-bluetooth-muted": "󰝟 {icon} {format_source}",
+        "format-source": "   {volume} ",
+        "format-source-muted": "  ",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "network": {
+        "format-wifi": "{signalStrength} ",
+        "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+        "tooltip-format": "{essid} ({gwaddr})",
+        "format-linked": "{ifname} (No IP) 󰈀",
+        "format-disconnected": "Disconnected ⚠",
+    },
+    "bluetooth": {
+        "format-connected": " {num_connections}",
+        "format-on": " on",
+        "format-off": " off",
+        "tooltip-format": "{controller_alias} ({controller_address})",
+        "tooltip-format-connected": "{controller_alias} ({controller_address})\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias} ({device_address})"
+    },
+    "cpu": {
+        "format": "{usage} ",
+    },
+    "memory": {
+        "format": "{} "
+    },
+    "backlight": {
+        "scroll-step": 5,
+        "format": "{percent} {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "hyprland/language": {
+        "keyboard-name": "at-translated-set-2-keyboard",
+        "format": "{}"
+    },
+    "battery": {
+        "interval": 20,
+        "states": {
+            "warning": 20,
+            "critical": 5
+        },
+        "format": "{capacity} {icon}",
+        "format-time": "{H} h {M} m",
+        "format-charging": "{capacity}  {icon}",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+}

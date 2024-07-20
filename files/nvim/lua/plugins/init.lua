@@ -1,6 +1,4 @@
 return {
-    "marko-cerovac/material.nvim",
-
     {
         "mbbill/undotree",
         config = function()

@@ -1,0 +1,48 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Fira Sans Medium", "FiraMono Nerd Font";
+    font-size: 10pt;
+}
+
+window#waybar {
+    background: rgba(24, 32, 48, 0.75);
+    border-bottom: 2px solid rgba(127, 127, 127, 0.5);
+    color: white;
+}
+
+.module {
+    padding: 0px 8px 2px;
+}
+
+#workspaces {
+    padding: 0px 2px 2px;
+}
+
+#workspaces button {
+    padding: 0px 4px;
+    color: #7f7f7f;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+}
+
+#idle_inhibitor,
+#network {
+    padding-right: 17px;
+}
+
+#pulseaudio,
+#backlight {
+    padding-right: 11px;
+}
+
+#cpu,
+#memory {
+    padding-right: 13px
+}
+
+#battery {
+    padding-right: 14px;
+}
