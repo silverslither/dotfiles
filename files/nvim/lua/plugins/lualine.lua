@@ -1,4 +1,6 @@
 function _config()
+    if (vim.g.vscode or os.getenv("TERM") == "linux") then return end
+
     require("lualine").setup({
         options = {
             icons_enabled = true,

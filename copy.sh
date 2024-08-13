@@ -14,6 +14,7 @@ PATHS=(
     "/boot/sbsign-grub-install.sh"
     "/boot/shim-nvram.sh"
     "/usr/share/X11/xkb/symbols/custom"
+    "/etc/greetd"
 )
 
 rm -rf "files"

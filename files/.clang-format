@@ -7,3 +7,4 @@ AlignAfterOpenBracket: BlockIndent
 AlignArrayOfStructures: Right
 AllowShortBlocksOnASingleLine: Empty
 BreakStringLiterals: true
+Cpp11BracedListStyle: false

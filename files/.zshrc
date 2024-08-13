@@ -17,35 +17,35 @@ function zle-keymap-select() {
     then
         if [[ $TERM == "linux" ]]
         then
-            print -Pn "\e[?6c"
+            print -n "\e[?6c"
         else
-            print -Pn "\e[2 q"
+            print -n "\e[2 q"
         fi
     else
         if [[ $TERM == "linux" ]]
         then
-            print -Pn "\e[?0c"
+            print -n "\e[?0c"
         else
-            print -Pn "\e[6 q"
+            print -n "\e[6 q"
         fi
     fi
 }
 function zle-line-init() {
     if [[ $TERM == "linux" ]]
     then
-        print -Pn "\e[?0c"
+        print -n "\e[?0c"
     else
-        print -Pn "\e[6 q"
+        print -n "\e[6 q"
     fi
 }
 zle -N zle-keymap-select
 zle -N zle-line-init
 
 function precmd() {
-    print -Pn "\e]0;zsh: %(1j,%j job%(2j|s|); ,)%~\e\\"
+    print -Pn -- "\e]0;zsh: %(1j,%j job%(2j|s|); ,)%~\e\\"
 }
 function preexec() {
-    print -Pn "\e]0;${(q)1}\e\\"
+    print -n -- "\e]0;${(q)1}\e\\"
 }
 
 bindkey -v '^?' backward-delete-char
@@ -98,8 +98,6 @@ stty -ixon # disable suspending output
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias vim=nvim
-alias vi=nvim
 alias rm='rm -i'
 alias cc=clang
 alias c++=clang++
@@ -116,6 +114,9 @@ export MANPAGER='/usr/bin/nvim "+set scl=no" "+Man!"'
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 
+function cd..() { cd .. }
+function cd-() { cd - }
+
 function e() {
     local fzf_path
     fzf_path=$(fzf) && $VISUAL "$fzf_path"
@@ -126,9 +127,10 @@ function d() {
     fzf_path=$(fzf --walker dir,follow,hidden) && cd "$fzf_path"
 }
 
-export ZSH_TEMP_HISTORY_DONT_TOUCH="/tmp/zsh$(/usr/bin/tty | /usr/bin/sed "s/\//_/g").stdout"
+/usr/bin/mkdir -p /tmp/zsh
+export ZSH_TEMP_HISTORY_DONT_TOUCH="/tmp/zsh/zsh$(/usr/bin/tty | /usr/bin/sed "s/\//_/g").stdout"
 :> $ZSH_TEMP_HISTORY_DONT_TOUCH
-/usr/bin/touch '/tmp/zsh_global.stdout'
+/usr/bin/touch '/tmp/zsh/zsh_global.stdout'
 __ () { /usr/bin/tee $ZSH_TEMP_HISTORY_DONT_TOUCH '/tmp/zsh_global.stdout'; }
 _ () { /usr/bin/cat $ZSH_TEMP_HISTORY_DONT_TOUCH; }
 _+ () { /usr/bin/cat '/tmp/zsh_global.stdout'; }

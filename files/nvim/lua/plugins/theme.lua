@@ -1,4 +1,6 @@
 function _config()
+    if (vim.g.vscode or os.getenv("TERM") == "linux") then return end
+
     vim.g.material_style = "deep ocean"
 
     require("material").setup({
@@ -34,7 +36,6 @@ function _config()
     end
     vim.g.material_lualine_theme = theme
 end
-
 
 return {
     "marko-cerovac/material.nvim",
