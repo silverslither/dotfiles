@@ -9,7 +9,7 @@ return {
             localSettings = {
                 [".*"] = {
                     takeover = "never",
-                    filename = "{hostname}-{pathname}_{timestamp}.{extension}"
+                    filename = "{hostname}_{pathname}_{timestamp}.{extension}"
                 }
             }
         }

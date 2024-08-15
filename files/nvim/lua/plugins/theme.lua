@@ -13,7 +13,9 @@ function _config()
             colors.backgrounds.floating_windows = "none"
             colors.backgrounds.non_current_windows = "none"
 
-            colors.editor.selection = "#3D4553"
+            colors.editor.line_numbers = "#585e79"
+
+            colors.editor.selection = "#3d4553"
             if (not vim.g.started_by_firenvim) then
                 colors.editor.cursor = nil
             end

@@ -15,8 +15,6 @@ vim.keymap.set({ "n", "x", "o" }, "g+", "$")
 
 vim.keymap.set({ "n", "x" }, "<S-CR>", "-")
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
-
 vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("x", "J", ":m '>+1<CR>gv=gv")
 
@@ -44,6 +42,8 @@ vim.keymap.set("i", "<C-h>", "<Left>")
 vim.keymap.set("i", "<C-j>", "<Down>")
 vim.keymap.set("i", "<C-k>", "<Up>")
 vim.keymap.set("i", "<C-l>", "<Right>")
+
+vim.keymap.set("n", "<Backspace>", "<C-^>");
 
 vim.keymap.set("n", "<leader>tn", vim.cmd.tabnew)
 vim.keymap.set("n", "<leader>tk", vim.cmd.tabclose)

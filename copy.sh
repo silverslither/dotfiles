@@ -11,6 +11,7 @@ PATHS=(
     "$HOME/.config/waybar"
     "$HOME/.config/dunst/dunstrc"
     "$HOME/.config/foot"
+    "$HOME/.config/bottom/bottom.toml"
     "/boot/sbsign-grub-install.sh"
     "/boot/shim-nvram.sh"
     "/usr/share/X11/xkb/symbols/custom"
