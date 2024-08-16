@@ -7,3 +7,9 @@
 	editor = nvim
 [credential]
 	helper = store
+[diff]
+	tool = nvimdiff
+[merge]
+	tool = nvimdiff1
+[mergetool]
+	hideResolved = true
