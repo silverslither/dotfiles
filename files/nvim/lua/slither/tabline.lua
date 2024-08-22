@@ -8,15 +8,18 @@ function _tabline()
         local winnr = vim.fn.tabpagewinnr(i)
         local mod = vim.fn.getbufvar(buflist[winnr], "&mod")
         local bufname = vim.fn.bufname(buflist[winnr])
-        bufname = (bufname == "") and "[No Name]" or vim.fn.fnamemodify(bufname, ":t")
+        local tabtitle = (bufname == "") and "[No Name]" or vim.fn.fnamemodify(bufname, ":t")
+        if (tabtitle == "") then -- for oil
+            tabtitle = vim.fn.fnamemodify(bufname:sub(1, -2), ":t")
+        end
 
-        s = s .. "%" .. i .. "T " .. i .. ((mod == 1) and "[+] " or " ") .. bufname .. " "
+        s = s .. "%" .. i .. "T " .. i .. ((mod == 1) and "[+] " or " ") .. tabtitle .. " "
     end
 
     s = s .. "%#TabLineFill#%T"
     return s
 end
 
-vim.cmd("highlight TabLineSel gui=bold") 
+vim.cmd("highlight TabLineSel gui=bold")
 
 vim.opt.tabline = "%!v:lua._tabline()"

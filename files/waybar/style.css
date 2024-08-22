@@ -28,6 +28,10 @@ window#waybar {
     color: #ffffff;
 }
 
+#window {
+    margin: -999px 0px;
+}
+
 #idle_inhibitor,
 #network {
     padding-right: 17px;

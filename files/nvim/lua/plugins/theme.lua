@@ -1,4 +1,22 @@
 function _config()
+    if (vim.g.started_by_firenvim) then
+        vim.g.material_style = "deep ocean"
+
+        require("material").setup({
+            styles = {
+                comments = { italic = true }
+            },
+            custom_colors = function(colors)
+                colors.editor.line_numbers = "#585e79"
+                colors.editor.selection = "#3d4553"
+                colors.editor.cursor = nil
+            end
+        });
+
+        vim.cmd("colorscheme material")
+        return
+    end
+
     if (vim.g.vscode or os.getenv("TERM") == "linux") then return end
 
     vim.g.material_style = "deep ocean"
@@ -16,26 +34,20 @@ function _config()
             colors.editor.line_numbers = "#585e79"
 
             colors.editor.selection = "#3d4553"
-            if (not vim.g.started_by_firenvim) then
-                colors.editor.cursor = nil
-            end
+            colors.editor.cursor = nil
         end
     })
 
     vim.cmd("colorscheme material")
 
-    if (not vim.g.started_by_firenvim) then
-        vim.cmd("highlight Normal guibg=none")
-        vim.cmd("highlight StatusLineNC guibg=none")
-        vim.cmd("highlight StatusLineTermNC guibg=none")
-    end
+    vim.cmd("highlight Normal guibg=none")
+    vim.cmd("highlight StatusLineNC guibg=none")
+    vim.cmd("highlight StatusLineTermNC guibg=none")
 
     theme = require("lualine.themes.material-nvim")
-    if (not vim.g.started_by_firenvim) then
-        theme.inactive.a.bg = "none"
-        theme.inactive.b.bg = "none"
-        theme.inactive.c.bg = "none"
-    end
+    theme.inactive.a.bg = "none"
+    theme.inactive.b.bg = "none"
+    theme.inactive.c.bg = "none"
     vim.g.material_lualine_theme = theme
 end
 

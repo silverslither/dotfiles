@@ -17,35 +17,47 @@ function zle-keymap-select() {
     then
         if [[ $TERM == "linux" ]]
         then
-            print -n "\e[?6c"
+            print -n -- "\e[?6c"
         else
-            print -n "\e[2 q"
+            print -n -- "\e[2 q"
         fi
     else
         if [[ $TERM == "linux" ]]
         then
-            print -n "\e[?0c"
+            print -n -- "\e[?0c"
         else
-            print -n "\e[6 q"
+            print -n -- "\e[6 q"
         fi
     fi
 }
 function zle-line-init() {
     if [[ $TERM == "linux" ]]
     then
-        print -n "\e[?0c"
+        print -n -- "\e[?0c"
     else
-        print -n "\e[6 q"
+        print -n -- "\e[6 q"
     fi
 }
 zle -N zle-keymap-select
 zle -N zle-line-init
 
+function chpwd() { # OSC 7
+    emulate -L zsh
+    setopt extendedglob
+    local LC_ALL=C
+    printf "\e]7;file://%s%s\e\\" $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+}
 function precmd() {
+    print -n -- "\e]133;A\e\\" # prompt jumping
     print -Pn -- "\e]0;zsh: %(1j,%j job%(2j|s|); ,)%~\e\\"
+    if ! builtin zle
+    then
+        print -n -- "\e]133;D\e\\" # pipe-command-output
+    fi
 }
 function preexec() {
     print -n -- "\e]0;${(q)1}\e\\"
+    print -n -- "\e]133;C\e\\" # pipe-command-output
 }
 
 bindkey -v '^?' backward-delete-char
@@ -62,8 +74,8 @@ function set-vi-colemak() {
     bindkey -a "J" vi-forward-blank-word-end
     bindkey -a "i" vi-forward-char
     bindkey -ar "I"
-    bindkey -a 'l' vi-insert
-    bindkey -a 'L' vi-insert-bol
+    bindkey -a "l" vi-insert
+    bindkey -a "L" vi-insert-bol
 }
 
 function set-vi-qwerty() {
@@ -77,8 +89,8 @@ function set-vi-qwerty() {
     bindkey -a "E" vi-forward-blank-word-end
     bindkey -a "l" vi-forward-char
     bindkey -ar "L"
-    bindkey -a 'i' vi-insert
-    bindkey -a 'I' vi-insert-bol
+    bindkey -a "i" vi-insert
+    bindkey -a "I" vi-insert-bol
 }
 
 if [[ $XDG_CURRENT_DESKTOP == "KDE" ]]
@@ -114,9 +126,6 @@ export MANPAGER='/usr/bin/nvim "+set scl=no" "+Man!"'
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 
-function cd..() { cd .. }
-function cd-() { cd - }
-
 function e() {
     local fzf_path
     fzf_path=$(fzf) && $VISUAL "$fzf_path"
@@ -127,12 +136,16 @@ function d() {
     fzf_path=$(fzf --walker dir,follow,hidden) && cd "$fzf_path"
 }
 
-/usr/bin/mkdir -p /tmp/zsh
-export ZSH_TEMP_HISTORY_DONT_TOUCH="/tmp/zsh/zsh$(/usr/bin/tty | /usr/bin/sed "s/\//_/g").stdout"
-:> $ZSH_TEMP_HISTORY_DONT_TOUCH
-/usr/bin/touch '/tmp/zsh/zsh_global.stdout'
-__ () { /usr/bin/tee $ZSH_TEMP_HISTORY_DONT_TOUCH '/tmp/zsh_global.stdout'; }
-_ () { /usr/bin/cat $ZSH_TEMP_HISTORY_DONT_TOUCH; }
-_+ () { /usr/bin/cat '/tmp/zsh_global.stdout'; }
+ZSH_TEMP_DIR="/run/user/$(id -u)/zsh"
+ZSH_TTY_HISTORY="$ZSH_TEMP_DIR/zsh$(/usr/bin/tty | /usr/bin/sed "s/\//_/g").stdout"
+ZSH_GLOBAL_HISTORY="$ZSH_TEMP_DIR/zsh_global.stdout"
+
+/usr/bin/mkdir -p $ZSH_TEMP_DIR
+:> $ZSH_TTY_HISTORY
+/usr/bin/touch $ZSH_GLOBAL_HISTORY
+
+__ () { /usr/bin/tee $ZSH_TTY_HISTORY $ZSH_GLOBAL_HISTORY; }
+_ () { /usr/bin/cat $ZSH_TTY_HISTORY; }
+_+ () { /usr/bin/cat $ZSH_GLOBAL_HISTORY; }
 
 PROMPT='[%1~] $ '

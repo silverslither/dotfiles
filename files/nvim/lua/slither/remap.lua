@@ -22,8 +22,10 @@ vim.keymap.set("n", "<leader>s", [[:%s/\M\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left
 vim.keymap.set("x", "<leader>s", [["9y:%s/\M<C-r>9/<C-r>9/gI<Left><Left><Left>]])
 
 vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set({ "n", "x" }, "<C-u>", "<C-u>zz")
+vim.keymap.set({ "n", "x" }, "<C-d>", "<C-d>zz")
+vim.keymap.set({ "n", "x" }, "H", function() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "kzzm'") end);
+vim.keymap.set({ "n", "x" }, "L", function() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "jzzm'") end);
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
@@ -48,8 +50,8 @@ vim.keymap.set("n", "<Backspace>", "<C-^>");
 vim.keymap.set("n", "<leader>tn", vim.cmd.tabnew)
 vim.keymap.set("n", "<leader>tk", vim.cmd.tabclose)
 vim.keymap.set("n", "<leader>ts", function() vim.cmd("tab split") end)
-vim.keymap.set("n", "<leader>t-", "<CMD>-tabmove<CR>")
-vim.keymap.set("n", "<leader>t+", "<CMD>+tabmove<CR>")
+vim.keymap.set("n", "<leader>t-", ":-tabmove<CR>")
+vim.keymap.set("n", "<leader>t+", ":+tabmove<CR>")
 vim.keymap.set("n", "<leader>1", "1gt")
 vim.keymap.set("n", "<leader>2", "2gt")
 vim.keymap.set("n", "<leader>3", "3gt")

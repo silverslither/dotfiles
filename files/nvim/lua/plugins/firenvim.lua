@@ -13,5 +13,7 @@ return {
                 }
             }
         }
+
+        vim.opt.guifont = "FiraMono Nerd Font Medium"
     end
 }
