@@ -32,19 +32,17 @@ window#waybar {
     margin: -999px 0px;
 }
 
-#idle_inhibitor,
-#network {
+#idle_inhibitor {
     padding-right: 17px;
 }
 
 #pulseaudio,
 #backlight {
-    padding-right: 11px;
+    padding-right: 10px;
 }
 
-#cpu,
-#memory {
-    padding-right: 13px
+#language {
+    padding-right: 7px;
 }
 
 #battery {

@@ -23,6 +23,9 @@
         "battery"
     ],
 
+    "hyprland/window": {
+            "separate-outputs": true
+    },
     "clock": {
         "interval": 1,
         "format": "{:%a %Y-%m-%d %I:%M:%S %p}"

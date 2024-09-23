@@ -17,7 +17,7 @@ function _config()
                     settings = {
                         Lua = {
                             diagnostics = {
-                                disable = { "lowercase-global" }
+                                disable = { "lowercase-global", "undefined-global" }
                             },
                             format = {
                                 enable = true,

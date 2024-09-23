@@ -18,14 +18,17 @@ vim.keymap.set({ "n", "x" }, "<S-CR>", "-")
 vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("x", "J", ":m '>+1<CR>gv=gv")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\M\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("x", "<leader>s", [["9y:%s/\M<C-r>9/<C-r>9/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%s/\V\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("x", "<leader>s", [["9y:%s/\V<C-r>9/<C-r>9/gI<Left><Left><Left>]])
+
+function H() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "kzzm'") end
+function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "jzzm'") end
+vim.keymap.set({ "n", "x" }, "<C-u>", H);
+vim.keymap.set({ "n", "x" }, "<C-d>", L);
+vim.keymap.set({ "n", "x" }, "H", H);
+vim.keymap.set({ "n", "x" }, "L", L);
 
 vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set({ "n", "x" }, "<C-u>", "<C-u>zz")
-vim.keymap.set({ "n", "x" }, "<C-d>", "<C-d>zz")
-vim.keymap.set({ "n", "x" }, "H", function() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "kzzm'") end);
-vim.keymap.set({ "n", "x" }, "L", function() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "jzzm'") end);
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
@@ -39,11 +42,6 @@ vim.keymap.set({ "n", "x" }, "<leader>d", "\"_d")
 vim.keymap.set("n", "<leader>D", "\"_d$")
 
 vim.keymap.set("n", "Q", "<nop>")
-
-vim.keymap.set("i", "<C-h>", "<Left>")
-vim.keymap.set("i", "<C-j>", "<Down>")
-vim.keymap.set("i", "<C-k>", "<Up>")
-vim.keymap.set("i", "<C-l>", "<Right>")
 
 vim.keymap.set("n", "<Backspace>", "<C-^>");
 
@@ -64,5 +62,7 @@ vim.keymap.set("n", "<leader>9", "9gt")
 vim.keymap.set("n", "<leader>0", "10gt")
 
 vim.keymap.set("n", "<Esc>", vim.cmd.noh)
+
+vim.keymap.set("n", "<leader>h", function() vim.cmd("TSBufDisable highlight") end)
 
 vim.keymap.set({ "n", "i" }, "<F1>", "<nop>")
