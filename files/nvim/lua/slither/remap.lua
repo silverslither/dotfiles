@@ -10,6 +10,7 @@ vim.keymap.set({ "n", "x", "o" }, "gj", "j")
 vim.keymap.set({ "n", "x", "o" }, "gk", "k")
 vim.keymap.set({ "n", "x", "o" }, "g0", "0")
 vim.keymap.set({ "n", "x", "o" }, "g^", "^")
+vim.keymap.set({ "n", "x", "o" }, "g$", "$")
 vim.keymap.set({ "n", "x", "o" }, "g-", "^")
 vim.keymap.set({ "n", "x", "o" }, "g+", "$")
 

@@ -15,26 +15,31 @@ if (handle ~= nil) then
     handle:close()
 
     if (layout:find("Colemak")) then
+        vim.g.colemak_enabled = true
+
         -- j -> n -> k -> e -> j
         vim.keymap.set({ "n", "x", "o" }, "n", "gj")
         vim.keymap.set({ "n", "x", "o" }, "gn", "j")
-        vim.keymap.set({ "n", "x", "o" }, "N", "mzJ`z")
+        vim.keymap.set({ "n", "o" }, "N", "mzJ`z")
+        vim.keymap.set("x", "N", ":m '>+1<CR>gv=gv")
+
 
         vim.keymap.set({ "n", "x", "o" }, "k", "nzzzv")
         vim.keymap.set({ "n", "x", "o" }, "K", "Nzzzv")
 
         vim.keymap.set({ "n", "x", "o" }, "e", "gk")
         vim.keymap.set({ "n", "x", "o" }, "ge", "k")
-        vim.keymap.set({ "n", "x", "o" }, "E", "K")
+        vim.keymap.set({ "n", "o" }, "E", "K")
+        vim.keymap.set("x", "E", ":m '<-2<CR>gv=gv")
 
         vim.keymap.set({ "n", "x", "o" }, "j", "e")
         vim.keymap.set({ "n", "x", "o" }, "J", "E")
 
         -- i <-> l
-        vim.keymap.set({ "n", "x", "o" }, "i", "l")
+        vim.keymap.set({ "n", "x" }, "i", "l")
         vim.keymap.set({ "n", "x" }, "I", L)
         vim.keymap.set({ "o" }, "I", "L")
-        vim.keymap.set({ "n", "x", "o" }, "l", "i")
+        vim.keymap.set({ "n", "x" }, "l", "i")
         vim.keymap.set({ "n", "x", "o" }, "L", "I")
     end
 end

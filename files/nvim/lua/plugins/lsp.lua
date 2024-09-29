@@ -3,6 +3,9 @@ function _config()
 
     lsp_zero.on_attach(function(client, bufnr)
         lsp_zero.default_keymaps({ buffer = bufnr })
+        if (vim.g.colemak_enabled) then
+            vim.keymap.set("n", "E", function() vim.lsp.buf.hover() end, { buffer = bufnr, remap = false })
+        end
     end)
 
     require("mason").setup({})
