@@ -8,7 +8,7 @@ elseif (desktop == "Hyprland") then
     handle = io.popen([[hyprctl devices | grep at-translated-set-2-keyboard -A 2 | tail -n 1]])
 end
 
-function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "jzzm'") end
+function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
 
 if (handle ~= nil) then
     local layout = handle:read("*a")
@@ -25,6 +25,7 @@ if (handle ~= nil) then
 
 
         vim.keymap.set({ "n", "x", "o" }, "k", "nzzzv")
+        vim.keymap.set({ "o" }, "gk", "gn")
         vim.keymap.set({ "n", "x", "o" }, "K", "Nzzzv")
 
         vim.keymap.set({ "n", "x", "o" }, "e", "gk")

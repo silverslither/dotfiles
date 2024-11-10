@@ -83,7 +83,7 @@
     "backlight": {
         "scroll-step": 5,
         "format": "{percent} {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", ""]
     },
     "hyprland/language": {
         "keyboard-name": "at-translated-set-2-keyboard",
@@ -92,13 +92,12 @@
     "battery": {
         "interval": 20,
         "states": {
-            "warning": 20,
-            "critical": 5
+            "critical": 10 
         },
         "format": "{capacity} {icon}",
         "format-time": "{H} h {M} m",
         "format-charging": "{capacity}  {icon}",
         "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", ""]
     },
 }

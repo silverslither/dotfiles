@@ -118,6 +118,8 @@ alias fzf='fzf --bind "tab:toggle-up,btab:toggle-down"'
 alias create-venv='python -m venv venv'
 alias source-venv='source venv/bin/activate'
 
+alias http='python -m http.server'
+
 export VISUAL=/usr/bin/nvim
 export EDITOR=$VISUAL
 export PAGER=/usr/bin/less
@@ -149,3 +151,5 @@ _ () { /usr/bin/cat $ZSH_TTY_HISTORY; }
 _+ () { /usr/bin/cat $ZSH_GLOBAL_HISTORY; }
 
 PROMPT='[%1~] $ '
+
+. "/home/slither/.deno/env"

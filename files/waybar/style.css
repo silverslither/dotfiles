@@ -48,3 +48,7 @@ window#waybar {
 #battery {
     padding-right: 14px;
 }
+
+#battery.critical {
+    color: #ff7f00;
+}
