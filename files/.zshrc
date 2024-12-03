@@ -6,6 +6,7 @@ SAVEHIST=1000
 
 zstyle ':completion:*' menu select
 zstyle ':completion"*' completer _complete _approximate
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 autoload -Uz compinit
 compinit
 
@@ -113,7 +114,7 @@ alias grep='grep --color=auto'
 alias rm='rm -i'
 alias cc=clang
 alias c++=clang++
-alias fzf='fzf --bind "tab:toggle-up,btab:toggle-down"'
+alias fzf='fzf -i --bind "tab:toggle-up,btab:toggle-down"'
 
 alias create-venv='python -m venv venv'
 alias source-venv='source venv/bin/activate'
@@ -135,7 +136,7 @@ function e() {
 
 function d() {
     local fzf_path
-    fzf_path=$(fzf --walker dir,follow,hidden) && cd "$fzf_path"
+    fzf_path=$(fzf --sync --walker dir,follow,hidden) && cd "$fzf_path"
 }
 
 ZSH_TEMP_DIR="/run/user/$(id -u)/zsh"

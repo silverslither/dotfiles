@@ -23,7 +23,6 @@ if (handle ~= nil) then
         vim.keymap.set({ "n", "o" }, "N", "mzJ`z")
         vim.keymap.set("x", "N", ":m '>+1<CR>gv=gv")
 
-
         vim.keymap.set({ "n", "x", "o" }, "k", "nzzzv")
         vim.keymap.set({ "o" }, "gk", "gn")
         vim.keymap.set({ "n", "x", "o" }, "K", "Nzzzv")
@@ -42,5 +41,13 @@ if (handle ~= nil) then
         vim.keymap.set({ "o" }, "I", "L")
         vim.keymap.set({ "n", "x" }, "l", "i")
         vim.keymap.set({ "n", "x", "o" }, "L", "I")
+
+        -- window navigation
+        vim.keymap.set({ "n" }, "<C-w>n", "<C-w>j")
+        vim.keymap.set({ "n" }, "<C-w>j", "<C-w>e")
+        vim.keymap.set({ "n" }, "<C-w>e", "<C-w>k")
+        vim.keymap.set({ "n" }, "<C-w>k", "<C-w>n")
+        vim.keymap.set({ "n" }, "<C-w>i", "<C-w>l")
+        vim.keymap.set({ "n" }, "<C-w>i", "<C-w>i")
     end
 end
