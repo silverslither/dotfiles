@@ -1,4 +1,5 @@
 require("slither.set")
+require("slither.autocmd")
 require("slither.remap")
 require("slither.colemak")
 require("slither.tabline")

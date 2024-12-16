@@ -9,7 +9,7 @@ function _config()
             custom_colors = function(colors)
                 colors.editor.line_numbers = "#585e79"
                 colors.editor.selection = "#3d4553"
-                colors.editor.cursor = nil
+                colors.editor.cursor = "#cccccc"
             end
         });
 
@@ -34,7 +34,7 @@ function _config()
             colors.editor.line_numbers = "#585e79"
 
             colors.editor.selection = "#3d4553"
-            colors.editor.cursor = nil
+            colors.editor.cursor = "#cccccc"
         end
     })
 
