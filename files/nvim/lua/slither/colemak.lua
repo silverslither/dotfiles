@@ -1,11 +1,10 @@
-local handle
-local desktop = os.getenv("XDG_CURRENT_DESKTOP")
+local handle local desktop = os.getenv("XDG_CURRENT_DESKTOP")
 if (desktop == "KDE") then
     handle = io.popen(
         [=[qdbus --literal org.kde.keyboard /Layouts getLayoutsList | grep -oP ' \(sss\) \K[^]]*"' | sed -n $(expr $(qdbus --literal org.kde.keyboard /Layouts getLayout) + 1)p]=]
     )
 elseif (desktop == "Hyprland") then
-    handle = io.popen([[hyprctl devices | grep at-translated-set-2-keyboard -A 2 | tail -n 1]])
+    handle = io.popen([[hyprctl devices -j | jq -r ".keyboards.[]|select(.main==true)|.active_keymap"]])
 end
 
 function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
@@ -44,6 +43,10 @@ if (handle ~= nil) then
         vim.keymap.set("x", "N", ":m '>+1<CR>gv=gv")
         vim.keymap.set("x", "E", ":m '<-2<CR>gv=gv")
 
+        -- tab navigation
+        vim.keymap.set("n", "<leader>tk", vim.cmd.tabnew)
+        vim.keymap.set("n", "<leader>tn", "<nop>")
+
         -- window navigation
         vim.keymap.set({ "n", "x", "o" }, "<C-w>n", "<C-w>j")
         vim.keymap.set({ "n", "x", "o" }, "<C-w>N", "<C-w>J")
@@ -68,5 +71,9 @@ if (handle ~= nil) then
         vim.keymap.set({ "n", "x", "o" }, "<C-w>l", "<nop>")
         vim.keymap.set({ "n", "x", "o" }, "<C-w>L", "<nop>")
         vim.keymap.set({ "n", "x", "o" }, "<C-w><C-l>", "<nop>")
+
+        -- misc
+        vim.keymap.set("t", "<Esc>k", "<nop>")
+        vim.keymap.set("t", "<Esc>e", "<Esc>e")
     end
 end

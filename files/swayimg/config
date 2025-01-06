@@ -1,0 +1,20 @@
+[viewer]
+antialiasing = yes
+window = #000000ff
+
+[gallery]
+antialiasing = yes
+window = #000000ff
+
+[font]
+name = monospace
+size = 14
+color = #ffffffff
+shadow = #00000000
+background = #0000007f
+
+[keys.viewer]
+Shift+Delete = none
+
+[keys.gallery]
+Shift+Delete = none

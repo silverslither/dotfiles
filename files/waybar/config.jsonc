@@ -86,7 +86,6 @@
         "format-icons": ["", "", "", "", "", "", "", ""]
     },
     "hyprland/language": {
-        "keyboard-name": "at-translated-set-2-keyboard",
         "format": "{}"
     },
     "battery": {
