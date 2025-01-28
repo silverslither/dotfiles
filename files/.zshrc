@@ -152,5 +152,3 @@ _ () { /usr/bin/cat $ZSH_TTY_HISTORY; }
 _+ () { /usr/bin/cat $ZSH_GLOBAL_HISTORY; }
 
 PROMPT='[%1~] $ '
-
-. "/home/slither/.deno/env"

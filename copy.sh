@@ -2,8 +2,6 @@
 
 PATHS=(
     "$HOME/.zshrc"
-    "$HOME/.inputrc"
-    "$HOME/.tmux.conf"
     "$HOME/.gitconfig"
     "$HOME/.clang-format"
     "$HOME/.config/mimeapps.list"
@@ -15,10 +13,12 @@ PATHS=(
     "$HOME/.config/bottom"
     "$HOME/.config/mpv"
     "$HOME/.config/swayimg"
-    "/boot/sbsign-grub-install.sh"
-    "/boot/shim-nvram.sh"
+    "$HOME/.config/tofi"
+    "/usr/local/bin/sbsign-grub-install"
+    "/usr/local/bin/shim-nvram"
     "/usr/share/X11/xkb/symbols/custom"
     "/etc/greetd"
+    "/etc/udev/rules.d/90-charging.rules"
 )
 
 rm -rf "files"

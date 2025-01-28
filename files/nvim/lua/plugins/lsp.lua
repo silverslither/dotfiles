@@ -1,12 +1,29 @@
 function _config()
-    local lsp_zero = require("lsp-zero")
+    local default_config = require("lspconfig").util.default_config
+    default_config.capabilities = vim.tbl_deep_extend(
+        "force",
+        default_config.capabilities,
+        require("cmp_nvim_lsp").default_capabilities()
+    )
 
-    lsp_zero.on_attach(function(client, bufnr)
-        lsp_zero.default_keymaps({ buffer = bufnr })
-        if (vim.g.colemak_enabled) then
-            vim.keymap.set("n", "E", function() vim.lsp.buf.hover() end, { buffer = bufnr, remap = false })
-        end
-    end)
+    vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(event)
+            local opts = { buffer = event.buf }
+            if (vim.g.colemak_enabled) then
+                vim.keymap.set("n", "E", function() vim.lsp.buf.hover() end, opts)
+            else
+                vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+            end
+            vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+            vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
+            vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
+            vim.keymap.set("n", "go", function() vim.lsp.buf.type_definition() end, opts)
+            vim.keymap.set("n", "gs", function() vim.lsp.buf.signature_help() end, opts)
+            vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end, opts)
+            vim.keymap.set({ "n", "x" }, "<F3>", function() vim.lsp.buf.format({ async = true }) end, opts)
+            vim.keymap.set("n", "<F4>", function() vim.lsp.buf.code_action() end, opts)
+        end,
+    })
 
     require("mason").setup({})
     require("mason-lspconfig").setup({
@@ -37,12 +54,10 @@ function _config()
 end
 
 return {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
+    "neovim/nvim-lspconfig",
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig",
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
         "L3MON4D3/LuaSnip",

@@ -13,7 +13,7 @@ function _config()
             end
         });
 
-        vim.cmd("colorscheme material")
+        vim.cmd.colorscheme("material")
         return
     end
 
@@ -38,11 +38,11 @@ function _config()
         end
     })
 
-    vim.cmd("colorscheme material")
+    vim.cmd.colorscheme("material")
 
-    vim.cmd("highlight Normal guibg=none")
-    vim.cmd("highlight StatusLineNC guibg=none")
-    vim.cmd("highlight StatusLineTermNC guibg=none")
+    vim.cmd.highlight("Normal guibg=none")
+    vim.cmd.highlight("StatusLineNC guibg=none")
+    vim.cmd.highlight("StatusLineTermNC guibg=none")
 
     theme = require("lualine.themes.material-nvim")
     theme.inactive.a.bg = "none"

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo "You must run this script as root."
+    exit
+fi
+
+/usr/bin/efibootmgr --unicode --disk $(/usr/bin/df --output="source" / | /usr/bin/grep "/dev" | /usr/bin/sed "s/p.//") --part 1 --create --label "Shim" --loader /EFI/GRUB/shimx64.efi
