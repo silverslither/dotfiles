@@ -43,11 +43,11 @@
     "pulseaudio": {
         "scroll-step": 5,
         "format": "{volume} {icon} {format_source}",
-        "format-muted": "0    {format_source}",
+        "format-muted": "0  {format_source}",
         "format-bluetooth": "{volume} {icon} {format_source}",
         "format-bluetooth-muted": "0 {icon} {format_source}",
         "format-source": "   {volume} ",
-        "format-source-muted": "   0 ",
+        "format-source-muted": "   0 ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -89,7 +89,7 @@
         "format": "{}"
     },
     "battery": {
-        "interval": 20,
+        "interval": 30,
         "states": {
             "critical": 10 
         },
@@ -97,6 +97,6 @@
         "format-time": "{H} h {M} m",
         "format-charging": "{capacity}  {icon}",
         "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", ""]
+        "format-icons": ["", "", "", "", ""]
     },
 }
