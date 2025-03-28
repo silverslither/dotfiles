@@ -10,18 +10,18 @@ function _config()
         callback = function(event)
             local opts = { buffer = event.buf }
             if (vim.g.colemak_enabled) then
-                vim.keymap.set("n", "E", function() vim.lsp.buf.hover() end, opts)
+                vim.keymap.set("n", "E", vim.lsp.buf.hover, opts)
             else
-                vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
             end
-            vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-            vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
-            vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
-            vim.keymap.set("n", "go", function() vim.lsp.buf.type_definition() end, opts)
-            vim.keymap.set("n", "gs", function() vim.lsp.buf.signature_help() end, opts)
-            vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end, opts)
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+            vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
+            vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
+            vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
             vim.keymap.set({ "n", "x" }, "<F3>", function() vim.lsp.buf.format({ async = true }) end, opts)
-            vim.keymap.set("n", "<F4>", function() vim.lsp.buf.code_action() end, opts)
+            vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
         end,
     })
 

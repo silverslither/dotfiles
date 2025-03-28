@@ -51,6 +51,7 @@ x-scheme-handler/http=zen.desktop
 x-scheme-handler/https=zen.desktop
 x-scheme-handler/mailto=zen.desktop
 x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/magnet=qbittorrent.desktop
 
 [Removed Associations]
 text/plain=libreoffice-writer.desktop

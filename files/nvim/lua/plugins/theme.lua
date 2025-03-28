@@ -1,7 +1,7 @@
 function _config()
-    if (vim.g.started_by_firenvim) then
-        vim.g.material_style = "deep ocean"
+    vim.g.material_style = "deep ocean"
 
+    if (vim.g.started_by_firenvim) then
         require("material").setup({
             styles = {
                 comments = { italic = true }
@@ -19,20 +19,18 @@ function _config()
 
     if (vim.g.vscode or os.getenv("TERM") == "linux") then return end
 
-    vim.g.material_style = "deep ocean"
-
     require("material").setup({
         styles = {
             comments = { italic = true }
         },
         custom_colors = function(colors)
             colors.editor.bg = "#182030"
+            colors.editor.active = "none"
             colors.backgrounds.sidebars = "none"
             colors.backgrounds.floating_windows = "none"
             colors.backgrounds.non_current_windows = "none"
 
             colors.editor.line_numbers = "#585e79"
-
             colors.editor.selection = "#3d4553"
             colors.editor.cursor = "#cccccc"
         end

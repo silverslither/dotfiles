@@ -47,33 +47,32 @@ if (handle ~= nil) then
         vim.keymap.set("n", "<leader>tk", vim.cmd.tabnew)
         vim.keymap.set("n", "<leader>tn", "<nop>")
 
+        vim.keymap.set("t", "<Esc><leader>tk", vim.cmd.tabnew)
+        vim.keymap.set("t", "<Esc><leader>tn", "<nop>")
+
         -- window navigation
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>n", "<C-w>j")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>N", "<C-w>J")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w><C-n>", "<C-w><C-j>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>n", "<C-w>j")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>N", "<C-w>J")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w><C-n>", "<C-w><C-j>")
 
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>k", vim.cmd.vnew)
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>K", "<nop>")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w><C-k>", vim.cmd.vnew)
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>k", vim.cmd.vnew)
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>K", "<nop>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w><C-k>", vim.cmd.vnew)
 
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>e", "<C-w>k")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>E", "<C-w>K")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w><C-e>", "<C-w><C-k>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>e", "<C-w>k")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>E", "<C-w>K")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w><C-e>", "<C-w><C-k>")
 
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>j", "<nop>")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>J", "<nop>")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w><C-j>", "<nop>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>j", "<nop>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>J", "<nop>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w><C-j>", "<nop>")
 
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>i", "<C-w>l")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>I", "<C-w>L")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w><C-i>", "<C-w><C-l>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>i", "<C-w>l")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>I", "<C-w>L")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w><C-i>", "<C-w><C-l>")
 
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>l", "<nop>")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w>L", "<nop>")
-        vim.keymap.set({ "n", "x", "o" }, "<C-w><C-l>", "<nop>")
-
-        -- misc
-        vim.keymap.set("t", "<Esc>k", "<nop>")
-        vim.keymap.set("t", "<Esc>e", "<Esc>e")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>l", "<nop>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>L", "<nop>")
+        vim.keymap.set({ "n", "x", "o", "t" }, "<C-w><C-l>", "<nop>")
     end
 end
