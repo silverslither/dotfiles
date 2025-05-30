@@ -1,4 +1,4 @@
-function _config()
+local function _config()
     local default_config = require("lspconfig").util.default_config
     default_config.capabilities = vim.tbl_deep_extend(
         "force",
@@ -61,7 +61,7 @@ return {
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
         "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
+        "saadparwaiz1/cmp_luasnip"
     },
     config = _config
 }

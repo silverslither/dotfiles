@@ -28,10 +28,24 @@ return {
         )
     ),
 
-    s({ trig = ";d" },
+    s({ trig = ";ss" },
         fmta(
             "\\<>{<>}{<>}",
             { i(1), i(2), i(3) }
+        )
+    ),
+
+    s({ trig = ";tu" },
+        fmta(
+            "\\textsuperscript{<>}",
+            { i(1) }
+        )
+    ),
+
+    s({ trig = ";td" },
+        fmta(
+            "\\textsubscript{<>}",
+            { i(1) }
         )
     ),
 

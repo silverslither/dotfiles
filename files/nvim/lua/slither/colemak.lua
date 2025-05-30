@@ -1,4 +1,5 @@
-local handle local desktop = os.getenv("XDG_CURRENT_DESKTOP")
+local handle
+local desktop = os.getenv("XDG_CURRENT_DESKTOP")
 if (desktop == "KDE") then
     handle = io.popen(
         [=[qdbus --literal org.kde.keyboard /Layouts getLayoutsList | grep -oP ' \(sss\) \K[^]]*"' | sed -n $(expr $(qdbus --literal org.kde.keyboard /Layouts getLayout) + 1)p]=]
@@ -7,7 +8,8 @@ elseif (desktop == "Hyprland") then
     handle = io.popen([[hyprctl devices -j | jq -r ".keyboards.[]|select(.main==true)|.active_keymap"]])
 end
 
-function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
+local function L() vim.cmd("norm! " ..
+    math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
 
 if (handle ~= nil) then
     local layout = handle:read("*a")
@@ -74,5 +76,13 @@ if (handle ~= nil) then
         vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>l", "<nop>")
         vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>L", "<nop>")
         vim.keymap.set({ "n", "x", "o", "t" }, "<C-w><C-l>", "<nop>")
+
+        local nvls = require("nvls")
+        local options = nvls.get_nvls_options()
+        options.player.mappings.backward = "n"
+        options.player.mappings.small_backward = "N"
+        options.player.mappings.forward = "e"
+        options.player.mappings.small_forward = "E"
+        nvls.setup(options)
     end
 end

@@ -116,8 +116,8 @@ alias cc=clang
 alias c++=clang++
 alias fzf='fzf -i --bind "tab:toggle-up,btab:toggle-down"'
 
-alias create-venv='python -m venv venv'
-alias source-venv='source venv/bin/activate'
+alias create-venv='python -m venv .venv'
+alias source-venv='source .venv/bin/activate'
 
 alias http='python -m http.server'
 
@@ -131,12 +131,12 @@ export CXX=/usr/bin/clang++
 
 function e() {
     local fzf_path
-    fzf_path=$(fzf) && $VISUAL "$fzf_path"
+    fzf_path=$(fzf --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && $VISUAL "$fzf_path"
 }
 
 function d() {
     local fzf_path
-    fzf_path=$(fzf --sync --walker dir,follow,hidden) && cd "$fzf_path"
+    fzf_path=$(fzf --sync --walker dir,follow,hidden --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && cd "$fzf_path"
 }
 
 ZSH_TEMP_DIR="/run/user/$(id -u)/zsh"

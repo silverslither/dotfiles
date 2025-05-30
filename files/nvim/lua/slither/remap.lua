@@ -17,8 +17,8 @@ vim.keymap.set({ "n", "x", "o" }, "g$", "$")
 vim.keymap.set({ "n", "x", "o" }, "g-", "^")
 vim.keymap.set({ "n", "x", "o" }, "g+", "$")
 
-function H() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gkzzm'") end
-function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
+local function H() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gkzzm'") end
+local function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
 vim.keymap.set({ "n", "x" }, "<C-u>", H);
 vim.keymap.set({ "n", "x" }, "<C-d>", L);
 vim.keymap.set({ "n", "x" }, "H", H);
@@ -80,6 +80,17 @@ vim.keymap.set("t", "<Esc><leader>7", "<C-\\><C-n>7gt")
 vim.keymap.set("t", "<Esc><leader>8", "<C-\\><C-n>8gt")
 vim.keymap.set("t", "<Esc><leader>9", "<C-\\><C-n>9gt")
 vim.keymap.set("t", "<Esc><leader>0", "<C-\\><C-n>10gt")
+
+vim.keymap.set("t", "<C-space>1", "<C-\\><C-n>1gt")
+vim.keymap.set("t", "<C-space>2", "<C-\\><C-n>2gt")
+vim.keymap.set("t", "<C-space>3", "<C-\\><C-n>3gt")
+vim.keymap.set("t", "<C-space>4", "<C-\\><C-n>4gt")
+vim.keymap.set("t", "<C-space>5", "<C-\\><C-n>5gt")
+vim.keymap.set("t", "<C-space>6", "<C-\\><C-n>6gt")
+vim.keymap.set("t", "<C-space>7", "<C-\\><C-n>7gt")
+vim.keymap.set("t", "<C-space>8", "<C-\\><C-n>8gt")
+vim.keymap.set("t", "<C-space>9", "<C-\\><C-n>9gt")
+vim.keymap.set("t", "<C-space>0", "<C-\\><C-n>10gt")
 
 -- window navigation
 vim.keymap.set({ "n", "x", "o", "t" }, "<C-w>", "<nop>", { nowait = true })

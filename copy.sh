@@ -18,7 +18,6 @@ PATHS=(
     "/usr/local/bin/shim-nvram"
     "/usr/share/X11/xkb/symbols/custom"
     "/etc/greetd"
-    "/etc/udev/rules.d/90-charging.rules"
 )
 
 rm -rf "files"

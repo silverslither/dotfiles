@@ -26,7 +26,7 @@ return {
         )
     ),
 
-    s({ trig = ";b" },
+    s({ trig = ";d" },
         fmta(
             "_{<>}",
             { i(1) }

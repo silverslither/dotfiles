@@ -1,5 +1,6 @@
-require("slither.set")
+require("slither.statusline")
+require("slither.tabline")
 require("slither.cmd")
+require("slither.set")
 require("slither.remap")
 require("slither.colemak")
-require("slither.tabline")

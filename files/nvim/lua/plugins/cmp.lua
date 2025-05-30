@@ -1,4 +1,4 @@
-function _config()
+local function _config()
     local ls = require("luasnip")
     local cmp = require("cmp")
 
@@ -17,7 +17,7 @@ function _config()
                 end
             end, { "i", "s" }),
 
-            ["<C-Space>"] = cmp.mapping(function(fallback)
+            ["<C-Space>"] = cmp.mapping(function(_)
                 if ls.locally_jumpable(1) then
                     ls.jump(1)
                 end

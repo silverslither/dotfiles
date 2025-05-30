@@ -1,4 +1,4 @@
-function _config()
+local function _config()
     local previewers = require("telescope.previewers")
     local previewers_utils = require("telescope.previewers.utils")
 

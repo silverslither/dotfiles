@@ -1,4 +1,4 @@
-function _config()
+local function _config()
     local ls = require("luasnip")
 
     ls.config.set_config({

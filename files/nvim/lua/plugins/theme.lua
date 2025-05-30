@@ -1,4 +1,4 @@
-function _config()
+local function _config()
     vim.g.material_style = "deep ocean"
 
     if (vim.g.started_by_firenvim) then
