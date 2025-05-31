@@ -47,9 +47,21 @@ local function _config()
             return vim.api.nvim_get_mode().mode ~= "c" -- mem leak on large files when in command mode
         end
     })
+
+    local default_config = require("lspconfig").util.default_config
+    default_config.capabilities = vim.tbl_deep_extend(
+        "force",
+        default_config.capabilities,
+        require("cmp_nvim_lsp").default_capabilities()
+    )
 end
 
 return {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+        "neovim/nvim-lspconfig",
+        "hrsh7th/cmp-nvim-lsp",
+        "saadparwaiz1/cmp_luasnip"
+    },
     config = _config
 }

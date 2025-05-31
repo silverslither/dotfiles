@@ -15,14 +15,19 @@ vim.api.nvim_create_autocmd("WinEnter", {
         vim.cmd.startinsert()
     end
 })
-]] --
+]]
 
-vim.api.nvim_create_autocmd({"WinEnter", "BufEnter"}, {
+vim.api.nvim_create_autocmd("ModeChanged", {
+    group = group,
+    callback = function() vim.cmd.redrawstatus() end
+})
+
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     group = group,
     callback = function() vim.opt_local.statusline = vim.g.active_statusline end
 })
 
-vim.api.nvim_create_autocmd({"WinLeave", "BufLeave"}, {
+vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     group = group,
     callback = function() vim.opt_local.statusline = vim.g.inactive_statusline end
 })

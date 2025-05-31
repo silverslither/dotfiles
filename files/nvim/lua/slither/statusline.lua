@@ -1,31 +1,16 @@
-if vim.g.statusline_icons ~= nil then
-    vim.g.statusline_icons = not (vim.g.vscode or os.getenv("TERM") == "linux")
-end
-
-local diagnostics_icons = {
-    error = "󰅚 ",
-    warn = "󰀪 ",
-    info = "󰋽 ",
-    hint = "󰌶 ",
+local separators = {
+    component = { left = "", right = "" },
+    section = { left = "", right = "" },
 }
 
-local diagnostics_map = {
-    error = "E:",
-    warn = "W:",
-    info = "I:",
-    hint = "H:",
+local diagnostics = {
+    text = { error = "E:", warn = "W:", info = "I:", hint = "H:" },
+    icons = { error = "󰅚 ", warn = "󰀪 ", info = "󰋽 ", hint = "󰌶 " },
 }
 
-local fileformat_icons = {
-    unix = " ",
-    dos = " ",
-    mac = " ",
-}
-
-local fileformat_map = {
-    unix = "LF",
-    dos = "CRLF",
-    mac = "CR",
+local fileformat = {
+    text = { unix = "LF", dos = "CRLF", mac = "CR" },
+    icons = { unix = " ", dos = " ", mac = " " },
 }
 
 local mode_map = {
@@ -68,30 +53,36 @@ local mode_map = {
 }
 
 local highlight_map = {
-    ["VISUAL"] = "_visual#",
-    ["V-BLOCK"] = "_visual#",
-    ["V-LINE"] = "_visual#",
-    ["SELECT"] = "_visual#",
-    ["S-LINE"] = "_visual#",
-    ["S-BLOCK"] = "_visual#",
-    ["REPLACE"] = "_replace#",
-    ["V-REPLACE"] = "_replace#",
-    ["INSERT"] = "_insert#",
-    ["COMMAND"] = "_command#",
-    ["EX"] = "_command#",
-    ["MORE"] = "_command#",
-    ["CONFIRM"] = "_command#",
-    ["TERMINAL"] = "_terminal#",
+    ["VISUAL"] = "_visual",
+    ["V-BLOCK"] = "_visual",
+    ["V-LINE"] = "_visual",
+    ["SELECT"] = "_visual",
+    ["S-LINE"] = "_visual",
+    ["S-BLOCK"] = "_visual",
+    ["REPLACE"] = "_replace",
+    ["V-REPLACE"] = "_replace",
+    ["INSERT"] = "_insert",
+    ["COMMAND"] = "_command",
+    ["EX"] = "_command",
+    ["MORE"] = "_command",
+    ["CONFIRM"] = "_command",
+    ["TERMINAL"] = "_terminal",
 }
 
-if not (vim.g.vscode or os.getenv("TERM") == "linux") then
-    local highlight_modes = { "normal", "visual", "replace", "insert", "command", "terminal", "inactive" }
+local advanced_terminal = not (vim.g.vscode or os.getenv("TERM") == "linux")
+if vim.g.statusline_icons == nil then
+    vim.g.statusline_icons = advanced_terminal
+end
 
-    local theme = vim.g.material_lualine_theme
+local theme = nil
+if advanced_terminal then
+    local highlight_modes = { "normal", "visual", "replace", "insert", "command", "terminal" }
+    local colors = require("material.colors")
+    theme = vim.g.material_lualine_theme
+
     for _, mode in pairs(highlight_modes) do
-        if theme[mode] == nil then
-            theme[mode] = theme.normal
-        end
+        if theme[mode] == nil then theme[mode] = theme.normal end
+
         for _, i in pairs({ "a", "b", "c" }) do
             local m = theme[mode]
             if m[i] == nil then m[i] = theme.normal[i] end
@@ -111,72 +102,73 @@ if not (vim.g.vscode or os.getenv("TERM") == "linux") then
         vim.cmd.highlight("_statusline_ac_" .. mode .. " guifg=" .. theme[mode].a.bg .. " guibg=" .. theme[mode].c.bg .. " gui=nocombine")
     end
 
-    local colors = require("material.colors")
+    vim.cmd.highlight("_statusline_b_diff_added guifg=" .. colors.git.added .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
+    vim.cmd.highlight("_statusline_b_diff_modified guifg=" .. colors.git.modified .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
+    vim.cmd.highlight("_statusline_b_diff_removed guifg=" .. colors.git.removed .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
 
-    vim.cmd.highlight("_statusline_diff_added guifg=" .. colors.git.added .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
-    vim.cmd.highlight("_statusline_diff_modified guifg=" .. colors.git.modified .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
-    vim.cmd.highlight("_statusline_diff_removed guifg=" .. colors.git.removed .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
-
-    vim.cmd.highlight("_statusline_diagnostic_error guifg=" .. colors.lsp.error .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
-    vim.cmd.highlight("_statusline_diagnostic_warn guifg=" .. colors.lsp.warning .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
-    vim.cmd.highlight("_statusline_diagnostic_info guifg=" .. colors.lsp.info .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
-    vim.cmd.highlight("_statusline_diagnostic_hint guifg=" .. colors.lsp.hint .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
+    vim.cmd.highlight("_statusline_b_diagnostic_error guifg=" .. colors.lsp.error .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
+    vim.cmd.highlight("_statusline_b_diagnostic_warn guifg=" .. colors.lsp.warning .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
+    vim.cmd.highlight("_statusline_b_diagnostic_info guifg=" .. colors.lsp.info .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
+    vim.cmd.highlight("_statusline_b_diagnostic_hint guifg=" .. colors.lsp.hint .. " guibg=" .. theme.normal.b.bg .. " gui=nocombine")
 end
 
 local ft_hlgroups = {}
 local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
 
+local highlight = "_normal"
+local function hlg(section, group)
+    group = group or highlight
+    return "%#_statusline_" .. section .. group .. "#"
+end
+
 function _statusline()
     local mode = vim.api.nvim_get_mode().mode
-    local a = mode_map[mode]
-    if a == nil then
-        a = "UNKNOWN (" .. mode .. ")"
-    end
-    local highlight = highlight_map[a]
-    if highlight == nil then
-        highlight = "_normal#"
-    end
+    local a = " " .. (mode_map[mode] or ("UNKNOWN (" .. mode .. ")")) .. " "
     local reg = vim.fn.reg_recording()
     if #reg > 0 then
-        a = a .. " (@" .. reg .. ")"
+        a = a .. "(@" .. reg .. ") "
     end
 
-    local b = {}
+    highlight = highlight_map[a]
+    if highlight == nil then
+        highlight = "_normal"
+    end
+
+    local _b = {}
     local bufnr = vim.api.nvim_get_current_buf()
     if vim.b.gitsigns_status and #vim.b.gitsigns_status > 0 then
-        table.insert(b, vim.b.gitsigns_status)
+        table.insert(_b, vim.b.gitsigns_status)
     end
 
-    local diagnostics_prefix = diagnostics_map
-    if vim.g.statusline_icons then diagnostics_prefix = diagnostics_icons end
-    local diagnostics = {}
+    local d = {}
+    local prefix = vim.g.statusline_icons and "icons" or "text"
     local n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.ERROR })
-    if n > 0 then table.insert(diagnostics, "%#_statusline_diagnostic_error#" .. diagnostics_prefix.error .. n) end
+    if n > 0 then table.insert(d, hlg("b", "_diagnostic_error") .. diagnostics[prefix].error .. n) end
     n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.WARN })
-    if n > 0 then table.insert(diagnostics, "%#_statusline_diagnostic_warn#" .. diagnostics_prefix.warn .. n) end
+    if n > 0 then table.insert(d, hlg("b", "_diagnostic_warn") .. diagnostics[prefix].warn .. n) end
     n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.INFO })
-    if n > 0 then table.insert(diagnostics, "%#_statusline_diagnostic_info#" .. diagnostics_prefix.info .. n) end
+    if n > 0 then table.insert(d, hlg("b", "_diagnostic_info") .. diagnostics[prefix].info .. n) end
     n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.HINT })
-    if n > 0 then table.insert(diagnostics, "%#_statusline_diagnostic_hint#" .. diagnostics_prefix.hint .. n) end
+    if n > 0 then table.insert(d, hlg("b", "_diagnostic_hint") .. diagnostics[prefix].hint .. n) end
 
-    if #diagnostics > 0 then
-        table.insert(b, table.concat(diagnostics, " "))
+    if #d > 0 then
+        table.insert(_b, table.concat(d, " "))
     end
-    b = table.concat(b, "%#_statusline_b" .. highlight .. "  ")
+    local b = table.concat(_b, hlg("b") .. " " .. separators.component.left .. " ")
 
-    local x = {}
+    local _x = {}
     n = vim.opt.fileencoding:get()
-    if #n > 0 then table.insert(x, n) end
+    if #n > 0 then table.insert(_x, n) end
     n = vim.opt.fileformat:get()
     if #n > 0 then
-        local m = fileformat_map[n]
+        local m = fileformat.text[n]
         if vim.g.statusline_icons then
-            local icon = fileformat_icons[n]
+            local icon = fileformat.icons[n]
             if icon ~= nil then
                 m = icon .. m
             end
         end
-        table.insert(x, m)
+        table.insert(_x, m)
     end
     n = vim.opt.filetype:get()
     if #n > 0 then
@@ -184,37 +176,34 @@ function _statusline()
             local icon, group = devicons.get_icon_by_filetype(n)
             if ft_hlgroups[group] == nil and group ~= nil and theme ~= nil then
                 local hlgroup = vim.api.nvim_get_hl_by_name(group, true)
-                vim.cmd.highlight("_statusline_" .. group .. " guifg=#" .. string.format("%06x", hlgroup.foreground) .. " guibg=" .. theme.normal.c.bg .. " gui=nocombine")
+                group = "_" .. group
+                vim.cmd.highlight("_statusline_c" .. group .. " guifg=#" .. string.format("%06x", hlgroup.foreground) .. " guibg=" .. theme.normal.c.bg .. " gui=nocombine")
                 ft_hlgroups[group] = true
             end
             if icon == nil or group == nil then
                 icon = ""
-                group = "c".. highlight:sub(1, #highlight - 1)
+                group = highlight
             end
-            n = "%#_statusline_" .. group .. "#" .. icon .. "%#_statusline_c" .. highlight .. " " .. n
+            n = hlg("c", group) .. icon .. hlg("c") .. " " .. n
         end
-        table.insert(x, n)
+        table.insert(_x, n)
     end
-    x = table.concat(x, "  ")
+    x = table.concat(_x, " " .. separators.component.right .. " ") .. " "
 
-    local sep = ""
-    if theme == nil then sep = "" end
-    local s = "%#_statusline_a" .. highlight .. " " .. a
+    local separator = advanced_terminal and separators.section.left or separators.component.left
+    local s = hlg("a") .. a
     if #b > 0 then
-        s = s .. " %#_statusline_ab" .. highlight .. sep .. "%#_statusline_b" .. highlight .. " "
-        s = s .. b
-        s = s .. " %#_statusline_bc" .. highlight .. sep .. "%#_statusline_c" .. highlight
+        b = " " .. b .. " "
+        s = s .. hlg("ab") .. separator .. hlg("b") .. b
+        s = s .. hlg("bc") .. separator .. hlg("c")
     else
-        s = s .. " %#_statusline_ac" .. highlight .. sep .. "%#_statusline_c" .. highlight
+        s = s .. hlg("ac") .. separator .. hlg("c")
     end
     s = s .. " %<%f %h%w%m%r "
     s = s .. "%="
-    sep = ""
-    if theme == nil then sep = "" end
-    s = s .. x
-    s = s .. " %#_statusline_bc" .. highlight .. sep .. "%#_statusline_b" .. highlight
-    s = s .. " %P "
-    s = s .. "%#_statusline_ab" .. highlight .. sep .. "%#_statusline_a" .. highlight
+    separator = advanced_terminal and separators.section.right or separators.component.right
+    s = s .. x .. hlg("bc") .. separator .. hlg("b")
+    s = s .. " %P " .. hlg("ab") .. separator .. hlg("a")
     s = s .. " %l:%c "
     return s
 end
@@ -224,7 +213,5 @@ vim.g.inactive_statusline = " %<%f %h%w%m%r %=%l:%c "
 vim.opt.statusline = vim.g.active_statusline
 
 vim.uv.new_timer():start(1000, 1000, function()
-    vim.schedule(function()
-        vim.cmd.redrawstatus()
-    end)
+    vim.schedule(vim.cmd.redrawstatus)
 end)

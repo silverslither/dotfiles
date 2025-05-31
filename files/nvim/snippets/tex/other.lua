@@ -52,7 +52,8 @@ return {
     s({ trig = ";1" },
         fmta(
             [[
-            \medskip\\
+            \smallskip
+
             <>
             ]],
             { i(0) }
@@ -62,7 +63,8 @@ return {
     s({ trig = ";2" },
         fmta(
             [[
-            \bigskip\\
+            \medskip
+
             <>
             ]],
             { i(0) }
@@ -72,7 +74,8 @@ return {
     s({ trig = ";3" },
         fmta(
             [[
-            \bigskip\bigskip\\
+            \bigskip
+
             <>
             ]],
             { i(0) }

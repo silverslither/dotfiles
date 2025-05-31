@@ -1,15 +1,12 @@
-local handle
+local handle = nil
 local desktop = os.getenv("XDG_CURRENT_DESKTOP")
 if (desktop == "KDE") then
-    handle = io.popen(
-        [=[qdbus --literal org.kde.keyboard /Layouts getLayoutsList | grep -oP ' \(sss\) \K[^]]*"' | sed -n $(expr $(qdbus --literal org.kde.keyboard /Layouts getLayout) + 1)p]=]
-    )
+    handle = io.popen([=[qdbus --literal org.kde.keyboard /Layouts getLayoutsList | grep -oP ' \(sss\) \K[^]]*"' | sed -n $(expr $(qdbus --literal org.kde.keyboard /Layouts getLayout) + 1)p]=])
 elseif (desktop == "Hyprland") then
     handle = io.popen([[hyprctl devices -j | jq -r ".keyboards.[]|select(.main==true)|.active_keymap"]])
 end
 
-local function L() vim.cmd("norm! " ..
-    math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
+local function L() vim.cmd("norm! " .. math.max(1, math.floor(0.5 * vim.fn.getwininfo(vim.fn.win_getid())[1].height - 1)) .. "gjzzm'") end
 
 if (handle ~= nil) then
     local layout = handle:read("*a")

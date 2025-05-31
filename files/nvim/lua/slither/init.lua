@@ -1,6 +1,7 @@
 require("slither.statusline")
 require("slither.tabline")
-require("slither.cmd")
-require("slither.set")
-require("slither.remap")
+require("slither.commands")
+
+require("slither.options")
+require("slither.keymaps")
 require("slither.colemak")
