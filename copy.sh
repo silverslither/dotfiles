@@ -16,7 +16,7 @@ PATHS=(
     "$HOME/.config/tofi"
     "/usr/local/bin/sbsign-grub-install"
     "/usr/local/bin/shim-nvram"
-    "/usr/share/X11/xkb/symbols/custom"
+    "/usr/share/xkeyboard-config-2/symbols/custom"
     "/etc/greetd"
 )
 

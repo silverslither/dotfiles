@@ -6,6 +6,9 @@ local function _config()
             styles = {
                 comments = { italic = true }
             },
+            disable = {
+                term_colors = true
+            },
             custom_colors = function(colors)
                 colors.editor.line_numbers = "#585e79"
                 colors.editor.selection = "#3d4553"
@@ -22,6 +25,9 @@ local function _config()
     require("material").setup({
         styles = {
             comments = { italic = true }
+        },
+        disable = {
+            term_colors = true,
         },
         custom_colors = function(colors)
             colors.editor.bg = "#182030"

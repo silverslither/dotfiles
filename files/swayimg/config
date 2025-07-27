@@ -1,10 +1,9 @@
 [viewer]
-antialiasing = yes
-window = #000000ff
+window = #00000000
+scale = fit
 
 [gallery]
-antialiasing = yes
-window = #000000ff
+window = #00000000
 
 [font]
 name = monospace

@@ -61,6 +61,7 @@ function preexec() {
     print -n -- "\e]133;C\e\\" # pipe-command-output
 }
 
+bindkey '^[[Z' reverse-menu-complete
 bindkey -v '^?' backward-delete-char
 bindkey '^r' history-incremental-search-backward
 
@@ -112,8 +113,6 @@ stty -ixon # disable suspending output
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias rm='rm -i'
-alias cc=clang
-alias c++=clang++
 alias fzf='fzf -i --bind "tab:toggle-up,btab:toggle-down"'
 
 alias create-venv='python -m venv .venv'
@@ -137,6 +136,11 @@ function e() {
 function d() {
     local fzf_path
     fzf_path=$(fzf --sync --walker dir,follow,hidden --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && cd "$fzf_path"
+}
+
+function img256sum() {
+    magick stream -- $1 - | sha256sum -z | head -c 66
+    print -- $1
 }
 
 ZSH_TEMP_DIR="/run/user/$(id -u)/zsh"
