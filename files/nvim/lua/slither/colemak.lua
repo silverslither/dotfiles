@@ -19,7 +19,8 @@ if (handle ~= nil) then
         -- movement, mode navigation
         vim.keymap.set({ "n", "x", "o" }, "n", "gj")
         vim.keymap.set({ "n", "x", "o" }, "gn", "j")
-        vim.keymap.set({ "n", "o" }, "N", "mzJ`z")
+        vim.keymap.set({ "n", "o" }, "N", "J")
+        vim.keymap.set({ "n", "o" }, "gN", "gJ")
 
         vim.keymap.set({ "n", "x", "o" }, "k", "nzzzv")
         vim.keymap.set({ "o" }, "gk", "gn")
@@ -31,6 +32,7 @@ if (handle ~= nil) then
 
         vim.keymap.set({ "n", "x", "o" }, "j", "e")
         vim.keymap.set({ "n", "x", "o" }, "J", "E")
+        vim.keymap.set({ "n", "o" }, "gJ", "<nop>")
 
         vim.keymap.set({ "n", "x" }, "i", "l")
         vim.keymap.set({ "n", "x" }, "I", L)

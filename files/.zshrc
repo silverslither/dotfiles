@@ -100,7 +100,7 @@ then
     KEYBOARD_LAYOUT=$(qdbus --literal org.kde.keyboard /Layouts getLayoutsList | grep -oP ' \(sss\) \K[^]]*"' | sed -n $(expr $(qdbus --literal org.kde.keyboard /Layouts getLayout) + 1)p)
 elif [[ $XDG_CURRENT_DESKTOP == "Hyprland" ]]
 then
-    KEYBOARD_LAYOUT=$(hyprctl devices | grep at-translated-set-2-keyboard -A 2 | tail -n 1)
+    KEYBOARD_LAYOUT=$(hyprctl devices -j | jq -r ".keyboards.[]|select(.main==true)|.active_keymap")
 fi
 
 if [[ $KEYBOARD_LAYOUT =~ "Colemak" ]]

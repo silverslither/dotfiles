@@ -10,7 +10,7 @@ columns = ["PID", "Name", "CPU%", "GPU%", "Mem%", "GMem%", "R/s", "W/s", "User",
     type="cpu"
   [[row.child]]
     ratio = 1
-    type="mem"
+    type="net"
 [[row]]
   [[row.child]]
     [[row.child.child]]
@@ -20,7 +20,7 @@ columns = ["PID", "Name", "CPU%", "GPU%", "Mem%", "GMem%", "R/s", "W/s", "User",
       ratio=2
       type="disk"
   [[row.child]]
-    type="net"
+    type="mem"
 [[row]]
   [[row.child]]
     type="proc"

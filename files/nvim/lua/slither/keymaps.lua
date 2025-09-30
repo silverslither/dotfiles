@@ -24,7 +24,6 @@ vim.keymap.set({ "n", "x" }, "<C-d>", L);
 vim.keymap.set({ "n", "x" }, "H", H);
 vim.keymap.set({ "n", "x" }, "L", L);
 
-vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
