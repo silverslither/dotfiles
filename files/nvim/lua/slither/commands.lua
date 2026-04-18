@@ -1,28 +1,55 @@
-local group = vim.api.nvim_create_augroup("slither", { clear = true })
+local augroup = vim.api.nvim_create_augroup("slither", { clear = true })
 
 vim.api.nvim_create_autocmd("ModeChanged", {
-    group = group,
+    group = augroup,
     callback = function() vim.cmd.redrawstatus() end
 })
 
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-    group = group,
+    group = augroup,
     callback = function() vim.opt_local.statusline = vim.g.active_statusline end
 })
 
 vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-    group = group,
+    group = augroup,
     callback = function() vim.opt_local.statusline = vim.g.inactive_statusline end
 })
 
+vim.api.nvim_create_autocmd("BufReadPre", {
+    group = augroup,
+    callback = function(_args)
+        local bufnr = _args.buf
+        local filesize = vim.loop.fs_stat(vim.api.nvim_buf_get_name(bufnr)).size
+        local lines = #vim.fn.readfile(vim.api.nvim_buf_get_name(bufnr))
+        if filesize < 2 * 1024 * 1024 and filesize / lines < 1024 then return true end
+
+        vim.api.nvim_create_autocmd({ "LspAttach" }, {
+            buffer = bufnr,
+            callback = function(args)
+                vim.schedule(function()
+                    vim.lsp.buf_detach_client(buf, args.data.client_id)
+                end)
+            end,
+        })
+
+        vim.schedule(function()
+            vim.treesitter.stop()
+            vim.opt_local.swapfile = false
+            vim.opt_local.foldmethod = "manual"
+            vim.opt_local.undoreload = 0
+            vim.opt_local.list = false
+        end)
+    end
+})
+
 vim.api.nvim_create_autocmd("BufEnter", {
-    group = group,
+    group = augroup,
     command = "syntax sync fromstart",
     pattern = { "*.ly", "*.ily" }
 })
 
 vim.api.nvim_create_autocmd("BufWritePost", {
-    group = group,
+    group = augroup,
     command = "LilyCmp",
     pattern = { "*.ly", "*.ily" }
 })

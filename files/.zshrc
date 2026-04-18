@@ -130,12 +130,12 @@ export CXX=/usr/bin/clang++
 
 function e() {
     local fzf_path
-    fzf_path=$(fzf --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && $VISUAL "$fzf_path"
+    fzf_path=$(fzf --walker file,hidden --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && $VISUAL "$fzf_path"
 }
 
 function d() {
     local fzf_path
-    fzf_path=$(fzf --sync --walker dir,follow,hidden --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && cd "$fzf_path"
+    fzf_path=$(fzf --sync --walker dir,hidden --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && cd "$fzf_path"
 }
 
 function img256sum() {

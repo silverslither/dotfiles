@@ -14,7 +14,7 @@
     enable_recursive_icon_lookup = true
     icon_theme = Vivid-Dark-Icons
 
-    dmenu = /usr/bin/wofi --dmenu -p dunst:
+    dmenu = /usr/bin/tofi --prompt-text "dunst:"
     browser = /usr/bin/xdg-open
 
     corner_radius = 4

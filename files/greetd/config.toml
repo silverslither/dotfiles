@@ -2,5 +2,5 @@
 vt = 1
 
 [default_session]
-command = "tuigreet --window-padding 2 -t --time-format '%a %Y-%m-%d %I:%M:%S %p' --remember --asterisks -c Hyprland"
+command = "tuigreet --window-padding 2 -t --time-format '%a %Y-%m-%d %I:%M:%S %p' --remember --asterisks -c start-hyprland"
 user = "greeter"

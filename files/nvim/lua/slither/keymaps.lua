@@ -116,7 +116,6 @@ vim.keymap.set({ "n", "x", "o" }, "<C-w><C-w>", "<C-w><C-w>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<Backspace>", "<C-^>");
 vim.keymap.set("n", "<Esc>", vim.cmd.noh)
-vim.keymap.set("n", "<leader>h", function() vim.cmd("TSBufDisable highlight") end)
 vim.keymap.set({ "n", "i" }, "<F1>", "<nop>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
 vim.keymap.set("t", "<Tab>", "<Tab>")

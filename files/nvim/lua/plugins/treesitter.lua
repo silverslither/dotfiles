@@ -1,12 +1,12 @@
-local function _config()
-    require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-        }
+function _config()
+    vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+            if pcall(vim.treesitter.start) then
+                -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                -- vim.wo.foldmethod = 'expr'
+                vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+            end
+        end,
     })
 end
 

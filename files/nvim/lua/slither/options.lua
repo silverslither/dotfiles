@@ -32,3 +32,5 @@ vim.opt.updatetime = 50
 vim.opt.showtabline = 1
 
 vim.opt.splitright = true
+
+vim.opt.synmaxcol = 1024

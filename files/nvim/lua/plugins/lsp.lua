@@ -35,6 +35,16 @@ local function _config()
         }
     })
 
+    vim.lsp.config("pyrefly", {
+        settings = {
+            python = {
+                pyrefly = {
+                    displayTypeErrors = "force-on"
+                }
+            }
+        }
+    })
+
     require("mason").setup()
     require("mason-lspconfig").setup()
 end
