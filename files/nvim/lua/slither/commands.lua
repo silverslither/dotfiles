@@ -7,12 +7,24 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     group = augroup,
-    callback = function() vim.opt_local.statusline = vim.g.active_statusline end
+    callback = function()
+        if vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= "" then return end
+        vim.opt_local.statusline = vim.g.active_statusline
+    end
 })
 
 vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     group = augroup,
-    callback = function() vim.opt_local.statusline = vim.g.inactive_statusline end
+    callback = function()
+        if vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= "" then return end
+        vim.opt_local.statusline = vim.g.inactive_statusline
+    end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    group = augroup,
+    pattern = { "*" },
+    callback = function() pcall(vim.treesitter.start) end
 })
 
 vim.api.nvim_create_autocmd("BufReadPre", {

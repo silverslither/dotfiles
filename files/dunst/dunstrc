@@ -12,7 +12,7 @@
     format = "<b>%s</b>\n%b"
 
     enable_recursive_icon_lookup = true
-    icon_theme = Vivid-Dark-Icons
+    icon_theme = Adwaita
 
     dmenu = /usr/bin/tofi --prompt-text "dunst:"
     browser = /usr/bin/xdg-open

@@ -21,7 +21,6 @@ vim.opt.undofile = true
 
 vim.opt.incsearch = true
 
-vim.opt.termguicolors = true
 vim.opt.scrolloff = 12
 
 vim.opt.cursorline = true

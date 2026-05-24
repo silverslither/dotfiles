@@ -210,7 +210,7 @@ end
 
 vim.g.active_statusline = "%{%v:lua._statusline()%}"
 vim.g.inactive_statusline = " %<%f %h%w%m%r %=%l:%c "
-vim.opt.statusline = vim.g.active_statusline
+--vim.opt.statusline = vim.g.active_statusline
 
 vim.uv.new_timer():start(1000, 1000, function()
     vim.schedule(vim.cmd.redrawstatus)
