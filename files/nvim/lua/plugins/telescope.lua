@@ -39,7 +39,6 @@ local function _config()
     vim.keymap.set("n", "<leader>b", builtin.buffers, {})
     vim.keymap.set("n", "g/", builtin.lsp_document_symbols, {})
     vim.keymap.set("n", "gr", builtin.lsp_references, {})
-    vim.keymap.set("n", "gi", builtin.diagnostics, {})
 end
 
 return {

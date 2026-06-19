@@ -42,7 +42,7 @@ hl.config({
     decoration = {
         rounding = 4,
         blur = {
-            enabled = false,
+            enabled = true,
             size = 6,
             passes = 3,
             xray = false,
@@ -167,12 +167,17 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 hl.bind("SUPER + T", hl.dsp.group.toggle())
-hl.bind("SUPER + R", hl.dsp.group.next({ forward = false }))
+hl.bind("SUPER + R", hl.dsp.group.prev())
 hl.bind("SUPER + S", hl.dsp.group.next())
 
 hl.layer_rule({
     match = { namespace = "waybar" },
     blur = true,
+})
+
+hl.layer_rule({
+    match = { namespace = "selection" },
+    no_anim = true,
 })
 
 hl.window_rule({

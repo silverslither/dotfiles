@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     end
 })
 
-vim.api.nvim_create_autocmd('FileType', {
+vim.api.nvim_create_autocmd("FileType", {
     group = augroup,
     pattern = { "*" },
     callback = function() pcall(vim.treesitter.start) end

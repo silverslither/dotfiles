@@ -40,6 +40,9 @@ if (handle ~= nil) then
         vim.keymap.set({ "n", "x" }, "l", "i")
         vim.keymap.set({ "n", "x", "o" }, "L", "I")
 
+        vim.keymap.del({ "o", "x" }, "in")
+        vim.keymap.set({ "o", "x" }, "ln", "in")
+
         -- editing
         vim.keymap.set("x", "N", ":m '>+1<CR>gv=gv")
         vim.keymap.set("x", "E", ":m '<-2<CR>gv=gv")
