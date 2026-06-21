@@ -14,9 +14,12 @@ PATHS=(
     "$HOME/.config/mpv"
     "$HOME/.config/swayimg"
     "$HOME/.config/tofi"
-    "/usr/local/bin/shim-nvram"
-    "/usr/share/xkeyboard-config-2/symbols/custom"
+    "/etc/vconsole.conf"
+    "/etc/sysctl.d"
     "/etc/greetd"
+    "/etc/keyd"
+    "/usr/share/xkeyboard-config-2/symbols/custom"
+    "/usr/local/bin/shim-nvram"
 )
 
 rm -rf "files"
