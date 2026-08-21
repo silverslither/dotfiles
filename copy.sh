@@ -5,6 +5,7 @@ PATHS=(
     "$HOME/.gitconfig"
     "$HOME/.clang-format"
     "$HOME/.config/mimeapps.list"
+    "$HOME/.config/wireplumber"
     "$HOME/.config/nvim"
     "$HOME/.config/hypr"
     "$HOME/.config/waybar"
