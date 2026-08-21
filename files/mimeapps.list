@@ -1,5 +1,14 @@
 [Added Associations]
 inode/directory=mpv.desktop
+x-scheme-handler/http=zen.desktop;
+x-scheme-handler/https=zen.desktop;
+x-scheme-handler/chrome=zen.desktop;
+application/x-extension-htm=zen.desktop;
+application/x-extension-html=zen.desktop;
+application/x-extension-shtml=zen.desktop;
+application/xhtml+xml=zen.desktop;
+application/x-extension-xhtml=zen.desktop;
+application/x-extension-xht=zen.desktop;
 
 [Default Applications]
 application/json=nvim.desktop
@@ -52,6 +61,12 @@ x-scheme-handler/https=zen.desktop
 x-scheme-handler/mailto=zen.desktop
 x-scheme-handler/discord=vesktop.desktop
 x-scheme-handler/magnet=qbittorrent.desktop
+application/x-extension-htm=zen.desktop
+application/x-extension-html=zen.desktop
+application/x-extension-shtml=zen.desktop
+application/xhtml+xml=zen.desktop
+application/x-extension-xhtml=zen.desktop
+application/x-extension-xht=zen.desktop
 
 [Removed Associations]
 text/plain=libreoffice-writer.desktop

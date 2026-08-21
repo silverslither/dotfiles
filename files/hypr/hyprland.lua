@@ -1,4 +1,4 @@
-hl.monitor({ output = "DP-1", mode = "1920x1080@120", position = "0x0", scale = 1 })
+hl.monitor({ output = "DP-1", mode = "2560x1440@60", position = "0x0", scale = 1 })
 hl.monitor({ output = "LVDS-1", disabled = true })
 hl.monitor({ output = "LVDS-2", disabled = true })
 
