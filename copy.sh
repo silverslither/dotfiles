@@ -15,6 +15,7 @@ PATHS=(
     "$HOME/.config/mpv"
     "$HOME/.config/swayimg"
     "$HOME/.config/tofi"
+    "$HOME/.config/zen/*/chrome/user*.css"
     "/etc/vconsole.conf"
     "/etc/sysctl.d"
     "/etc/greetd"
@@ -28,5 +29,5 @@ mkdir files
 
 for i in "${PATHS[@]}"
 do
-    cp -r "$i" "files"
+    cp -r $i files
 done

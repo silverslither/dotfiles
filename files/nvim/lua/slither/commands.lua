@@ -24,7 +24,11 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup,
     pattern = { "*" },
-    callback = function() pcall(vim.treesitter.start) end
+    callback = function()
+        if pcall(vim.treesitter.start) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end
 })
 
 vim.api.nvim_create_autocmd("BufReadPre", {

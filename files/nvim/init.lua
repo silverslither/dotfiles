@@ -19,6 +19,8 @@ vim.g.maplocalleader = " "
 
 vim.opt.termguicolors = true
 
+vim.g.basic_terminal = vim.g.vscode or (os.getenv("TERM") == "linux" and not vim.g.started_by_firenvim)
+
 require("lazy").setup({
     spec = "plugins",
     rocks = {

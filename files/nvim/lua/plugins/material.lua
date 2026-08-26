@@ -1,5 +1,5 @@
 local function _config()
-    if (vim.g.vscode or os.getenv("TERM") == "linux") then return end
+    if vim.g.basic_terminal then return end
 
     vim.g.material_style = "deep ocean"
 
@@ -9,7 +9,7 @@ local function _config()
                 comments = { italic = true }
             },
             disable = {
-                term_colors = true
+                term_colors = true,
             },
             custom_colors = function(colors)
                 colors.editor.line_numbers = "#585e79"

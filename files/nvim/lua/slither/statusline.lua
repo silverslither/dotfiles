@@ -69,13 +69,12 @@ local highlight_map = {
     ["TERMINAL"] = "_terminal",
 }
 
-local advanced_terminal = not (vim.g.vscode or os.getenv("TERM") == "linux")
 if vim.g.statusline_icons == nil then
-    vim.g.statusline_icons = advanced_terminal
+    vim.g.statusline_icons = not vim.g.basic_terminal
 end
 
 local theme = nil
-if advanced_terminal then
+if not vim.g.basic_terminal then
     local highlight_modes = { "normal", "visual", "replace", "insert", "command", "terminal" }
     local colors = require("material.colors")
     theme = vim.g.material_lualine_theme
@@ -190,7 +189,7 @@ function _statusline()
     end
     x = table.concat(_x, " " .. separators.component.right .. " ") .. " "
 
-    local separator = advanced_terminal and separators.section.left or separators.component.left
+    local separator = vim.g.basic_terminal and separators.component.left or separators.section.left
     local s = hlg("a") .. a
     if #b > 0 then
         b = " " .. b .. " "
@@ -201,7 +200,7 @@ function _statusline()
     end
     s = s .. " %<%f %h%w%m%r "
     s = s .. "%="
-    separator = advanced_terminal and separators.section.right or separators.component.right
+    separator = vim.g.basic_terminal and separators.component.right or separators.section.right
     s = s .. x .. hlg("bc") .. separator .. hlg("b")
     s = s .. " %P " .. hlg("ab") .. separator .. hlg("a")
     s = s .. " %l:%c "
@@ -210,7 +209,6 @@ end
 
 vim.g.active_statusline = "%{%v:lua._statusline()%}"
 vim.g.inactive_statusline = " %<%f %h%w%m%r %=%l:%c "
---vim.opt.statusline = vim.g.active_statusline
 
 vim.uv.new_timer():start(1000, 1000, function()
     vim.schedule(vim.cmd.redrawstatus)
