@@ -12,15 +12,15 @@ window#waybar {
 }
 
 .module {
-    padding: 0px 8px 2px;
+    padding: 2px 8px 4px;
 }
 
 #workspaces {
-    padding: 0px 2px 2px;
+    padding: 2px 2px 4px;
 }
 
 #workspaces button {
-    padding: 0px 4px;
+    padding: 0px 8px;
     color: #7f7f7f;
 }
 

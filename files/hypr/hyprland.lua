@@ -1,11 +1,18 @@
-hl.monitor({ output = "DP-1", mode = "2560x1440@60", position = "0x0", scale = 1 })
-hl.monitor({ output = "LVDS-1", disabled = true })
-hl.monitor({ output = "LVDS-2", disabled = true })
+hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x0", scale = 1.33, bitdepth = 10, icc = "/usr/local/share/color/icc/TPLCD_3215_DCIP3.icm" })
+hl.monitor({ output = "HDMI-A-1",  mode = "preferred", position = "auto", scale = 1, bitdepth = 10, icc = "/usr/local/share/color/icc/G50A_sRGB.icm" })
 
 for i = 1, 5 do
     hl.workspace_rule({
         workspace = i,
-        monitor = "DP-1",
+        monitor = "HDMI-A-1",
+        default = true,
+    })
+end
+
+for i = 6, 10 do
+    hl.workspace_rule({
+        workspace = i,
+        monitor = "eDP-1",
         default = true,
     })
 end
@@ -75,6 +82,7 @@ hl.config({
         enabled = true,
     },
     misc = {
+        vrr = 1,
         disable_hyprland_logo = true,
         disable_splash_rendering = true,
         force_default_wallpaper = 1,
@@ -96,6 +104,9 @@ hl.config({
             drag_lock = false,
         },
     },
+    xwayland = {
+        force_zero_scaling = true,
+    }
 })
 
 hl.animation({ leaf = "global", enabled = true, speed = 5, bezier = "default" })

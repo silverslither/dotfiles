@@ -1,8 +1,6 @@
-[flags]
-process_memory_as_value = true
-
 [processes]
-columns = ["PID", "Name", "CPU%", "GPU%", "Mem%", "GMem%", "R/s", "W/s", "User", "State", "Time"]
+columns = ["pid", "name", "cpu%", "gpu%", "mem", "gmem", "r/s", "w/s", "user", "state", "time"]
+default_memory_value = true
 
 [[row]]
   [[row.child]]
