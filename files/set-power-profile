@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+export XDG_RUNTIME_DIR=/run/user/1000
+
+ac=$(</sys/class/power_supply/ACAD/online)
+
+epp="balance_performance"
+rr=165
+
+if [[ $ac = '0' ]]
+then
+    epp="power"
+    rr=60
+fi
+
+if [[ $(/usr/bin/id -u) = 0 ]]
+then
+    for p in /sys/devices/system/cpu/cpufreq/policy*; do
+        echo "$epp" > "$p/energy_performance_preference"
+    done
+fi
+
+hyprctl -i 0 eval 'hl.monitor({ output = "eDP-1", mode = "2560x1600@'$rr'", position = "0x0", scale = 1.33, bitdepth = 10, icc = "/usr/local/share/color/icc/TPLCD_3215_DCIP3.icm" })' >/dev/null 2>&1
+
+exit 0

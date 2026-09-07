@@ -16,11 +16,13 @@ PATHS=(
     "$HOME/.config/swayimg"
     "$HOME/.config/tofi"
     "$HOME/.config/zen/*/chrome/user*.css"
+    "/etc/udev/rules.d"
     "/etc/vconsole.conf"
     "/etc/sysctl.d"
     "/etc/greetd"
     "/etc/keyd"
     "/usr/share/xkeyboard-config-2/symbols/custom"
+    "/usr/local/bin/set-power-profile"
     "/usr/local/bin/sbsign-grub-install"
     "/usr/local/bin/shim-nvram"
 )

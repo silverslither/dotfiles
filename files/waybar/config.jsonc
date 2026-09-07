@@ -1,5 +1,6 @@
 // -*- mode: jsonc -*-
 {
+    "start_hidden": true,
     "layer": "top",
     "position": "top",
     "spacing": 0, // (px)
@@ -14,17 +15,13 @@
         "idle_inhibitor",
         "tray",
         "pulseaudio",
-        //"network",
-        //"bluetooth",
-        //"cpu",
-        //"memory",
         "backlight",
         "hyprland/language",
         "battery"
     ],
 
     "hyprland/window": {
-            "separate-outputs": true
+        "separate-outputs": true
     },
     "clock": {
         "interval": 1,

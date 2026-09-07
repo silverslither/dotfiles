@@ -7,6 +7,7 @@ return {
                 signcolumn = "yes"
             },
             delete_to_trash = true,
+            constrain_cursor = "name",
             view_options = {
                 show_hidden = true
             }

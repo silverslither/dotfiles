@@ -1,6 +1,6 @@
 [terminal]
-vt = 1
+vt = next 
 
 [default_session]
-command = "tuigreet --window-padding 2 -t --time-format '%a %Y-%m-%d %I:%M:%S %p' --remember --asterisks -c start-hyprland"
+command = "tuigreet --window-padding 2 -t --time-format '%a %Y-%m-%d %I:%M:%S %p' --remember --asterisks -c 'start-hyprland >/dev/null 2>&1'"
 user = "greeter"

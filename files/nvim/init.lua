@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.opt.termguicolors = true
+vim.o.termguicolors = true
 
 vim.g.basic_terminal = vim.g.vscode or (os.getenv("TERM") == "linux" and not vim.g.started_by_firenvim)
 

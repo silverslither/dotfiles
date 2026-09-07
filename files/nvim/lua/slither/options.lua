@@ -1,35 +1,35 @@
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
-vim.opt.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
-vim.opt.wrap = true
-vim.opt.linebreak = true
+vim.o.wrap = true
+vim.o.linebreak = true
 
-vim.opt.smartindent = true
+vim.o.smartindent = true
 
-vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup//"
-vim.opt.backup = true
+vim.o.backupdir = vim.fn.stdpath("state") .. "/backup//"
+vim.o.backup = true
 
-vim.opt.undodir = vim.fn.stdpath("state") .. "/undo//"
-vim.opt.undofile = true
+vim.o.undodir = vim.fn.stdpath("state") .. "/undo//"
+vim.o.undofile = true
 
-vim.opt.incsearch = true
+vim.o.incsearch = true
 
-vim.opt.scrolloff = 12
+vim.o.scrolloff = 12
 
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 
-vim.opt.updatetime = 50
+vim.o.updatetime = 50
 
-vim.opt.showtabline = 1
+vim.o.showtabline = 1
 
-vim.opt.splitright = true
+vim.o.splitright = true
 
-vim.opt.synmaxcol = 1024
+vim.o.synmaxcol = 1024

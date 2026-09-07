@@ -1,21 +1,23 @@
-hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x0", scale = 1.33, bitdepth = 10, icc = "/usr/local/share/color/icc/TPLCD_3215_DCIP3.icm" })
+hl.monitor({ output = "eDP-1", mode = "2560x1600@165", position = "0x0", scale = 1.33, bitdepth = 10, icc = "/usr/local/share/color/icc/TPLCD_3215_DCIP3.icm" })
 hl.monitor({ output = "HDMI-A-1",  mode = "preferred", position = "auto", scale = 1, bitdepth = 10, icc = "/usr/local/share/color/icc/G50A_sRGB.icm" })
+
 
 for i = 1, 5 do
     hl.workspace_rule({
         workspace = i,
-        monitor = "HDMI-A-1",
-        default = true,
+        monitor = "eDP-1",
+        default = i == 1,
     })
 end
 
 for i = 6, 10 do
     hl.workspace_rule({
         workspace = i,
-        monitor = "eDP-1",
-        default = true,
+        monitor = "HDMI-A-1",
+        default = i == 6,
     })
 end
+
 
 hl.env("XCURSOR_SIZE", 24)
 hl.env("XCURSOR_THEME", "breeze_cursors")
@@ -24,6 +26,7 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_QPA_PLATFORM", "wayland")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
+
 hl.config({
     general = {
         border_size = 2,
@@ -31,7 +34,7 @@ hl.config({
         gaps_out = 4,
         col = {
             inactive_border = "rgba(127, 127, 127, 0.5)",
-            active_border = "rgba(255, 255, 255, 1.0)",
+            active_border = "rgba(255, 255, 255, 0.7)",
         },
         layout = "dwindle",
         allow_tearing = true,
@@ -49,7 +52,7 @@ hl.config({
     decoration = {
         rounding = 4,
         blur = {
-            enabled = true,
+            enabled = false,
             size = 6,
             passes = 3,
             xray = false,
@@ -62,9 +65,9 @@ hl.config({
     group = {
         col = {
             border_inactive = "rgba(127, 127, 127, 0.5)",
-            border_active = "rgba(255, 255, 255, 1.0)",
+            border_active = "rgba(255, 255, 255, 0.7)",
             border_locked_inactive = "rgba(127, 127, 127, 0.5)",
-            border_locked_active = "rgba(255, 255, 255, 1.0)",
+            border_locked_active = "rgba(255, 255, 255, 0.7)",
         },
         groupbar = {
             render_titles = false,
@@ -72,9 +75,9 @@ hl.config({
             keep_upper_gap = false,
             col = {
                 inactive = "rgba(127, 127, 127, 0.5)",
-                active = "rgba(255, 255, 255, 1.0)",
+                active = "rgba(255, 255, 255, 0.7)",
                 locked_inactive = "rgba(127, 127, 127, 0.5)",
-                locked_active = "rgba(255, 255, 255, 1.0)",
+                locked_active = "rgba(255, 255, 255, 0.7)",
             },
         },
     },
@@ -109,12 +112,16 @@ hl.config({
     }
 })
 
+hl.device({
+    name = "elan06fa:00-04f3:327e-touchpad",
+    accel_profile = "custom 1.372466 0.000 0.394 0.789 1.381 1.974 2.567 3.213 4.114 5.015 5.916 6.817 7.718 8.619 9.520 10.421 11.322 12.223 13.124 14.025 15.887"
+})
+
 hl.animation({ leaf = "global", enabled = true, speed = 5, bezier = "default" })
-hl.animation({ leaf = "monitorAdded", enabled = false })
 hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "default", style = "slidevert" })
 
 hl.bind("SUPER + X", hl.dsp.window.close())
-hl.bind("SUPER + M", hl.dsp.exec_cmd([[op=$(printf "poweroff\nreboot\nlock\nexit" | tofi --prompt-text "session: ") && case $op in exit) hyprctl dispatch "hl.dsp.exit()";; lock) loginctl lock-session;; *) systemctl $op;; esac]]))
+hl.bind("SUPER + M", hl.dsp.exec_cmd([[op=$(printf "suspend\npoweroff\nreboot\nlock\nexit" | tofi --prompt-text "session: ") && case $op in exit) hyprctl dispatch "hl.dsp.exit()";; lock) loginctl lock-session;; *) systemctl $op;; esac]]))
 hl.bind("SUPER + Q", hl.dsp.exec_cmd("foot"))
 hl.bind("SUPER + A", hl.dsp.exec_cmd("dolphin"))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("zen-browser"))
@@ -133,11 +140,12 @@ local VOLUME_NOTIF = [[dunstify -t 1000 -r 22517 -- "$(wpctl get-volume @DEFAULT
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+;" .. VOLUME_NOTIF), { repeating = true })
 hl.bind("SHIFT + XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%+;" .. VOLUME_NOTIF), { repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;" .. VOLUME_NOTIF), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle;" .. VOLUME_NOTIF), { repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle;" .. VOLUME_NOTIF), { repeating = false })
 
-local BRIGHTNESS_NOTIF = [[dunstify -t 1000 -r 22518 -- "Brightness: $(brightnessctl | grep -o '[0-9]*%')"]]
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd([[brightnessctl set $(expr "$(brightnessctl | grep -oP '[0-9]+(?=%)')" + 5)%;]] .. BRIGHTNESS_NOTIF), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd([[brightnessctl set $(expr "$(brightnessctl | grep -oP '[0-9]+(?=%)')" - 5)%;]] .. BRIGHTNESS_NOTIF), { repeating = true })
+local BCTL_SELECTOR = "brightnessctl -d '[^n][^v]*' -c backlight "
+local BRIGHTNESS_NOTIF = [[dunstify -t 1000 -r 22518 -- "Brightness: $(]] .. BCTL_SELECTOR .. [[| grep -o '[0-9]*%')"]]
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(BCTL_SELECTOR .. [[set $(expr "$(]] .. BCTL_SELECTOR .. [[| grep -oP '[0-9]+(?=%)')" + 5)%;]] .. BRIGHTNESS_NOTIF), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(BCTL_SELECTOR .. [[set $(expr "$(]] .. BCTL_SELECTOR .. [[| grep -oP '[0-9]+(?=%)')" - 5)%;]] .. BRIGHTNESS_NOTIF), { repeating = true })
 
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))
 hl.bind("SUPER + J", hl.dsp.focus({ direction = "down" }))
@@ -169,7 +177,7 @@ for i = 1, 10 do
     hl.bind("SUPER + SHIFT + " .. j, hl.dsp.window.move({ workspace = i }))
 end
 
-hl.bind("SUPER + C", hl.dsp.exec_cmd("hyprctl clients| grep -P \\s+class: vesktop$ || vesktop --disable-gpu"))
+hl.bind("SUPER + C", hl.dsp.exec_cmd("hyprctl clients | grep -P \\s+class: vesktop$ || vesktop"))
 hl.bind("SUPER + C", hl.dsp.workspace.toggle_special("chat"))
 hl.bind("SUPER + SHIFT + C", hl.dsp.window.move({ workspace = "special:chat" }))
 hl.bind("SUPER + Grave", hl.dsp.window.fullscreen())
@@ -181,13 +189,10 @@ hl.bind("SUPER + T", hl.dsp.group.toggle())
 hl.bind("SUPER + R", hl.dsp.group.prev())
 hl.bind("SUPER + S", hl.dsp.group.next())
 
-hl.layer_rule({
-    match = { namespace = "waybar" },
-    blur = true,
-})
+hl.bind("SUPER + Space", hl.dsp.exec_cmd("pkill -USR1 waybar"))
 
 hl.layer_rule({
-    match = { namespace = "selection" },
+    match = { namespace = "(selection|launcher)" },
     no_anim = true,
 })
 
@@ -209,8 +214,19 @@ hl.window_rule({
     no_blur = true,
 })
 
+hl.window_rule({
+    name = "pointer",
+    match = { class = "(org.kde.kdeconnect.daemon)" },
+    float = true,
+    fullscreen_state = "0",
+    size = { "monitor_w", "monitor_h" },
+    no_anim = true,
+    border_size = 0,
+})
+
 hl.on("hyprland.start", function()
-    hl.exec_cmd("brightnessctl set 50%")
+    hl.exec_cmd("sleep 1; set-power-profile")
+    hl.exec_cmd(BCTL_SELECTOR .. "set 40%")
     hl.exec_cmd("swaybg -m fill -i /home/slither/Pictures/NASA_APOD_20210314.png")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
@@ -223,4 +239,5 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
     hl.exec_cmd("nm-applet")
     hl.exec_cmd("blueman-applet")
+    hl.exec_cmd("kdeconnectd")
 end)

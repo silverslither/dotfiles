@@ -12,15 +12,15 @@ window#waybar {
 }
 
 .module {
-    padding: 2px 8px 4px;
+    padding: 0px 8px;
 }
 
 #workspaces {
-    padding: 2px 2px 4px;
+    padding: 0px;
 }
 
 #workspaces button {
-    padding: 0px 8px;
+    padding: 0px 4px;
     color: #7f7f7f;
 }
 
@@ -29,15 +29,14 @@ window#waybar {
 }
 
 #window {
-    margin: -999px 0px;
+    margin: -999px 2px;
 }
 
 #idle_inhibitor {
     padding-right: 17px;
 }
 
-#pulseaudio,
-#backlight {
+#pulseaudio, #backlight {
     padding-right: 10px;
 }
 

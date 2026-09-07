@@ -156,9 +156,9 @@ function _statusline()
     local b = table.concat(_b, hlg("b") .. " " .. separators.component.left .. " ")
 
     local _x = {}
-    n = vim.opt.fileencoding:get()
+    n = vim.o.fileencoding
     if #n > 0 then table.insert(_x, n) end
-    n = vim.opt.fileformat:get()
+    n = vim.o.fileformat
     if #n > 0 then
         local m = fileformat.text[n]
         if vim.g.statusline_icons then
@@ -169,7 +169,7 @@ function _statusline()
         end
         table.insert(_x, m)
     end
-    n = vim.opt.filetype:get()
+    n = vim.o.filetype
     if #n > 0 then
         if vim.g.statusline_icons and devicons_ok then
             local icon, group = devicons.get_icon_by_filetype(n)

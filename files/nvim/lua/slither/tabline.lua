@@ -22,4 +22,4 @@ end
 
 vim.cmd.highlight("TabLineSel gui=bold")
 
-vim.opt.tabline = "%!v:lua._tabline()"
+vim.o.tabline = "%!v:lua._tabline()"
