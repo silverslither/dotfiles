@@ -44,6 +44,7 @@ hl.config({
         no_donation_nag = true,
     },
     cursor = {
+        no_hardware_cursors = true,
         enable_hyprcursor = false,
     },
     dwindle = {
@@ -52,10 +53,10 @@ hl.config({
     decoration = {
         rounding = 4,
         blur = {
-            enabled = false,
+            enabled = true,
             size = 6,
             passes = 3,
-            xray = false,
+            xray = true,
             popups = true,
         },
         shadow = {
@@ -89,7 +90,7 @@ hl.config({
         disable_hyprland_logo = true,
         disable_splash_rendering = true,
         force_default_wallpaper = 1,
-        middle_click_paste = false,
+        middle_click_paste = true, -- mouse:274 bind disables this
         disable_autoreload = true,
     },
     input = {
@@ -177,13 +178,14 @@ for i = 1, 10 do
     hl.bind("SUPER + SHIFT + " .. j, hl.dsp.window.move({ workspace = i }))
 end
 
-hl.bind("SUPER + C", hl.dsp.exec_cmd("hyprctl clients | grep -P \\s+class: vesktop$ || vesktop"))
+hl.bind("SUPER + C", hl.dsp.exec_cmd("hyprctl clients | grep -P \\s+class: vesktop$ || vesktop --enable-blink-features=MiddleClickAutoscroll"))
 hl.bind("SUPER + C", hl.dsp.workspace.toggle_special("chat"))
 hl.bind("SUPER + SHIFT + C", hl.dsp.window.move({ workspace = "special:chat" }))
 hl.bind("SUPER + Grave", hl.dsp.window.fullscreen())
 
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind("mouse:274", hl.dsp.exec_cmd("wl-copy -pc"), { mouse = true, non_consuming = true })
 
 hl.bind("SUPER + T", hl.dsp.group.toggle())
 hl.bind("SUPER + R", hl.dsp.group.prev())
@@ -194,6 +196,12 @@ hl.bind("SUPER + Space", hl.dsp.exec_cmd("pkill -USR1 waybar"))
 hl.layer_rule({
     match = { namespace = "(selection|launcher)" },
     no_anim = true,
+})
+
+hl.layer_rule({
+    match = { namespace = "waybar" },
+    blur = true,
+    ignore_alpha = 0.0,
 })
 
 hl.window_rule({
@@ -227,9 +235,10 @@ hl.window_rule({
 hl.on("hyprland.start", function()
     hl.exec_cmd("sleep 1; set-power-profile")
     hl.exec_cmd(BCTL_SELECTOR .. "set 40%")
-    hl.exec_cmd("swaybg -m fill -i /home/slither/Pictures/NASA_APOD_20210314.png")
+    hl.exec_cmd("swaybg -m fill -i /home/slither/Pictures/NASA_APOD_20181006.png")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
+    hl.exec_cmd("wl-clip-persist --clipboard regular")
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("kbuildsycoca6")

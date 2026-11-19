@@ -16,7 +16,7 @@ return {
             if status.removed and status.removed > 0 then
                 table.insert(s, "%#_statusline_b_diff_removed#-" .. status.removed)
             end
-            return " " .. status.head .. (#s > 1 and table.concat(s, " ") or "")
+            return " " .. (status.head == nil and "" or status.head) .. (#s > 1 and table.concat(s, " ") or "")
         end
     }
 }

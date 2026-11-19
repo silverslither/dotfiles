@@ -16,7 +16,7 @@ PATHS=(
     "$HOME/.config/swayimg"
     "$HOME/.config/tofi"
     "$HOME/.config/zen/*/chrome/user*.css"
-    "/etc/udev/rules.d"
+    "/etc/udev/rules.d/99-set-power-profile.rules"
     "/etc/vconsole.conf"
     "/etc/sysctl.d"
     "/etc/greetd"

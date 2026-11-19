@@ -1,6 +1,5 @@
-return {
-    "martineausimon/nvim-lilypond-suite",
-    opts = {
+local function _config()
+    require("nvls").setup({
         lilypond = {
             highlights = nil,
             mappings = {
@@ -41,5 +40,24 @@ return {
                 audio_format = "flac",
             }
         }
-    }
+    })
+
+    local augroup = vim.api.nvim_create_augroup("slither.lilypond", { clear = true })
+
+    vim.api.nvim_create_autocmd("BufEnter", {
+        group = augroup,
+        command = "syntax sync fromstart",
+        pattern = { "*.ly", "*.ily" }
+    })
+
+    vim.api.nvim_create_autocmd("BufWritePost", {
+        group = augroup,
+        command = "LilyCmp",
+        pattern = { "*.ly", "*.ily" }
+    })
+end
+
+return {
+    "martineausimon/nvim-lilypond-suite",
+    config = _config
 }

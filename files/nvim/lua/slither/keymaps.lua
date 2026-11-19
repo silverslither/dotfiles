@@ -1,16 +1,27 @@
 vim.g.no_man_maps = true
 
+-- for leader
+vim.keymap.set({ "n", "x" }, "<C-Space>", "<Space>", { remap = true })
+
 -- movement
-vim.keymap.set({ "n", "x", "o" }, "j", "gj")
-vim.keymap.set({ "n", "x", "o" }, "k", "gk")
+vim.keymap.set("n", "j", function()
+    return vim.v.count == 0 and "gj" or "j"
+end, { expr = true })
+vim.keymap.set("n", "k", function()
+    return vim.v.count == 0 and "gk" or "k"
+end, { expr = true })
 vim.keymap.set({ "n", "x", "o" }, "0", "g0")
 vim.keymap.set({ "n", "x", "o" }, "^", "g^")
 vim.keymap.set({ "n", "x", "o" }, "$", "g$")
 vim.keymap.set({ "n", "x", "o" }, "-", "g^")
 vim.keymap.set({ "n", "x", "o" }, "+", "g$")
 
-vim.keymap.set({ "n", "x", "o" }, "gj", "j")
-vim.keymap.set({ "n", "x", "o" }, "gk", "k")
+vim.keymap.set("n", "gj", function()
+    return vim.v.count == 0 and "j" or "gj"
+end, { expr = true })
+vim.keymap.set("n", "gk", function()
+    return vim.v.count == 0 and "k" or "gk"
+end, { expr = true })
 vim.keymap.set({ "n", "x", "o" }, "g0", "0")
 vim.keymap.set({ "n", "x", "o" }, "g^", "^")
 vim.keymap.set({ "n", "x", "o" }, "g$", "$")

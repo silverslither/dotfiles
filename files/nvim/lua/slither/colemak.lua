@@ -17,8 +17,12 @@ if (handle ~= nil) then
         vim.g.colemak_enabled = true
 
         -- movement, mode navigation
-        vim.keymap.set({ "n", "x", "o" }, "n", "gj")
-        vim.keymap.set({ "n", "x", "o" }, "gn", "j")
+        vim.keymap.set({ "n", "x", "o" }, "n", function()
+            return vim.v.count == 0 and "gj" or "j"
+        end, { expr = true })
+        vim.keymap.set({ "n", "x", "o" }, "gn", function()
+            return vim.v.count == 0 and "j" or "gj"
+        end, { expr = true })
         vim.keymap.set({ "n", "o" }, "N", "J")
         vim.keymap.set({ "n", "o" }, "gN", "gJ")
 
@@ -26,8 +30,12 @@ if (handle ~= nil) then
         vim.keymap.set({ "o" }, "gk", "gn")
         vim.keymap.set({ "n", "x", "o" }, "K", "Nzzzv")
 
-        vim.keymap.set({ "n", "x", "o" }, "e", "gk")
-        vim.keymap.set({ "n", "x", "o" }, "ge", "k")
+        vim.keymap.set({ "n", "x", "o" }, "e", function()
+            return vim.v.count == 0 and "gk" or "k"
+        end, { expr = true })
+        vim.keymap.set({ "n", "x", "o" }, "ge", function()
+            return vim.v.count == 0 and "k" or "gk"
+        end, { expr = true })
         vim.keymap.set({ "n", "o" }, "E", "K")
 
         vim.keymap.set({ "n", "x", "o" }, "j", "e")

@@ -33,3 +33,5 @@ vim.o.showtabline = 1
 vim.o.splitright = true
 
 vim.o.synmaxcol = 1024
+
+vim.o.modeline = false

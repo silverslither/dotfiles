@@ -21,16 +21,6 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     end
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = { "*" },
-    callback = function()
-        if pcall(vim.treesitter.start) then
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        end
-    end
-})
-
 vim.api.nvim_create_autocmd("BufReadPre", {
     group = augroup,
     callback = function(_args)
@@ -58,18 +48,6 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     end
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-    group = augroup,
-    command = "syntax sync fromstart",
-    pattern = { "*.ly", "*.ily" }
-})
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-    group = augroup,
-    command = "LilyCmp",
-    pattern = { "*.ly", "*.ily" }
-})
-
 vim.api.nvim_create_user_command("Redir", function(ctx)
     local lines = vim.split(vim.api.nvim_exec(ctx.args, true), "\n", { plain = true })
     vim.cmd.new()
@@ -77,3 +55,64 @@ vim.api.nvim_create_user_command("Redir", function(ctx)
     vim.opt_local.modified = false
     vim.opt_local.filetype = "text"
 end, { nargs = "+", complete = "command" })
+
+vim.api.nvim_create_user_command("MergeCompileCommands", function()
+    local root = vim.fn.getcwd()
+    local output = vim.fs.normalize(root .. "/compile_commands.json")
+
+    local databases = vim.tbl_filter(function(path)
+        return vim.fs.normalize(path) ~= output
+    end, vim.fn.glob(root .. "/**/compile_commands.json", false, true))
+
+    table.sort(databases)
+
+    if #databases == 0 then
+        vim.notify("No compile_commands.json files found", vim.log.levels.WARN)
+        return
+    end
+
+    local merged, indices = {}, {}
+
+    local function absolute(path, base)
+        if not path:match("^/") then
+            path = base .. "/" .. path
+        end
+        return vim.fs.normalize(path)
+    end
+
+    for _, db in ipairs(databases) do
+        local ok, entries = pcall(
+            vim.json.decode,
+            table.concat(vim.fn.readfile(db), "\n")
+        )
+
+        if not ok or type(entries) ~= "table" then
+            vim.notify("Invalid database: " .. db, vim.log.levels.ERROR)
+            return
+        end
+
+        for _, entry in ipairs(entries) do
+            local dir = absolute(entry.directory, vim.fs.dirname(db))
+            local file = absolute(entry.file, dir)
+
+            entry.directory = dir
+            entry.file = file
+
+            if indices[file] then
+                merged[indices[file]] = entry
+            else
+                merged[#merged + 1] = entry
+                indices[file] = #merged
+            end
+        end
+    end
+
+    vim.fn.writefile(
+        { vim.json.encode(merged) },
+        root .. "/compile_commands.json"
+    )
+
+    vim.notify(
+        string.format("Merged %d databases, %d files", #databases, #merged)
+    )
+end, {})

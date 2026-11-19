@@ -15,7 +15,7 @@ return {
             }
         }
 
-        vim.o.guifont = "FiraMono Nerd Font Mono Medium:h12"
+        vim.o.guifont = "FiraMono Nerd Font Mono Medium:h16"
 
         vim.api.nvim_create_user_command("WriteLspFlags", function()
             vim.fn.writefile({ "-xc" }, "compile_flags.txt")

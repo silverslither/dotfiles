@@ -45,6 +45,34 @@ local function _config()
         vim.cmd.highlight("Normal guibg=none")
         vim.cmd.highlight("StatusLineNC guibg=none")
         vim.cmd.highlight("StatusLineTermNC guibg=none")
+
+        for _, autocmd in ipairs(vim.api.nvim_get_autocmds({
+            group = "nvim.terminal",
+            event = "TermRequest",
+        })) do
+            if autocmd.desc == "Handles OSC foreground/background color requests" then
+                vim.api.nvim_del_autocmd(autocmd.id)
+            end
+        end
+        vim.api.nvim_create_autocmd("TermRequest", {
+            group = vim.api.nvim_create_augroup("slither.terminal-colors", { clear = true }),
+            callback = function(event)
+                local command = ({ ["\27]10;?"] = 10, ["\27]11;?"] = 11 })[event.data.sequence]
+                local channel = vim.bo[event.buf].channel
+                if not command or channel == 0 then return end
+
+                local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+                local color = command == 10 and (normal.fg or 0xd3dae3) or (normal.bg or 0x182030)
+                vim.api.nvim_chan_send(channel, string.format(
+                    "\27]%d;rgb:%04x/%04x/%04x%s",
+                    command,
+                    math.floor(color / 0x10000) % 0x100 * 0x101,
+                    math.floor(color / 0x100) % 0x100 * 0x101,
+                    color % 0x100 * 0x101,
+                    event.data.terminator
+                ))
+            end,
+        })
     end
 
     theme = require("lualine.themes.material-nvim")
