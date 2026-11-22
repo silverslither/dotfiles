@@ -6,9 +6,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if not client or not client:supports_method("textDocument/completion", event.buf) then return end
 
-        vim.bo[event.buf].complete = "Fv:lua.vim.lsp.omnifunc"
         vim.bo[event.buf].completeopt = "menu,menuone,noselect,popup"
-        vim.bo[event.buf].autocomplete = true
+        vim.bo[event.buf].autocomplete = false
+        vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+
+        vim.api.nvim_clear_autocmds({ group = group, buffer = event.buf, event = "InsertCharPre" })
+        vim.api.nvim_create_autocmd("InsertCharPre", {
+            group = group,
+            buffer = event.buf,
+            callback = function()
+                if vim.fn.match(vim.v.char, [[^\k$]]) >= 0 then
+                    vim.schedule(vim.lsp.completion.get)
+                end
+            end,
+        })
     end,
 })
 
@@ -26,6 +37,7 @@ else
     map_popup_key("<C-n>", "<Ignore>")
 end
 
+map_popup_key("<C-p>", "<Ignore>")
 map_popup_key("<C-y>", "<Ignore>")
 
 vim.keymap.set({ "i", "s" }, "<Tab>", function()

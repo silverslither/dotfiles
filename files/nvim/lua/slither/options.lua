@@ -28,6 +28,7 @@ vim.o.cursorlineopt = "number"
 
 vim.o.updatetime = 50
 
+vim.opt.shortmess:append("c")
 vim.o.showtabline = 1
 
 vim.o.splitright = true

@@ -2,7 +2,7 @@ local augroup = vim.api.nvim_create_augroup("slither", { clear = true })
 
 vim.api.nvim_create_autocmd("ModeChanged", {
     group = augroup,
-    callback = function() vim.cmd.redrawstatus() end
+    callback = function() vim.schedule(vim.cmd.redrawstatus) end
 })
 
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {

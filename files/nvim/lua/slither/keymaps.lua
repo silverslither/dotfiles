@@ -38,8 +38,6 @@ vim.keymap.set({ "n", "x" }, "L", L);
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
-vim.keymap.set({ "n", "x" }, "<S-CR>", "-")
-
 -- editing
 vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("x", "J", ":m '>+1<CR>gv=gv")

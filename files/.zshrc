@@ -113,7 +113,6 @@ stty -ixon # disable suspending output
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias rm='rm -i'
-alias fzf='fzf -i --bind "tab:toggle-up,btab:toggle-down"'
 
 alias create-venv='python -m venv .venv'
 alias source-venv='source .venv/bin/activate'
@@ -125,17 +124,22 @@ export EDITOR=$VISUAL
 export PAGER=/usr/bin/less
 export AUR_PAGER=/usr/bin/nvim
 export MANPAGER='/usr/bin/nvim "+set scl=no" "+Man!"'
+export SKIM_DEFAULT_OPTIONS='--algo arinae --typos --case ignore --bind=tab:toggle+up,btab:toggle+down'
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 
+function _skim_paths() {
+    fd --hidden --no-ignore --exclude .git --exclude node_modules --exclude .venv --exclude venv --exclude __pycache__ --exclude .wine "$@"
+}
+
 function e() {
-    local fzf_path
-    fzf_path=$(fzf --walker file,hidden --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && $VISUAL "$fzf_path"
+    local selected
+    selected=$(_skim_paths --type f --type l | sk) && "$VISUAL" -- "$selected"
 }
 
 function d() {
-    local fzf_path
-    fzf_path=$(fzf --sync --walker dir,hidden --walker-skip=.git,node_modules,.venv,venv,__pycache__,.wine) && cd "$fzf_path"
+    local selected
+    selected=$(_skim_paths --type d | sk --sync) && cd -- "./$selected"
 }
 
 function img256sum() {
